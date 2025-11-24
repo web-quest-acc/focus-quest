@@ -177,6 +177,7 @@
         /* CONFIGURATION */
         const WORK_TIME = 25 * 60; 
         const BREAK_TIME = 5 * 60; 
+        // const WORK_TIME = 5; const BREAK_TIME = 3; // Test
         
         const CATEGORIES = {
             'deep': { color: '#ff7675', label: 'Deep Work' },
@@ -315,15 +316,13 @@
                 const timeString = `${m}:${s < 10 ? '0' : ''}${s}`;
                 document.getElementById('timer').innerText = timeString;
                 
-                // --- MODIFICATION V5.4 (Barre continue + Pas de double tomate) ---
+                // --- MODIFICATION V5.5 : BARRE PLUS LARGE (15 blocs au lieu de 10) ---
                 const percent = ((totalTime - timeLeft) / totalTime) * 100;
-                const totalBlocks = 10;
+                const totalBlocks = 15; // <-- Changement ici
                 const filledBlocks = Math.round((percent / 100) * totalBlocks);
                 
-                // Utilisation de caractères de ligne pour faire continu (Gras vs Fin)
                 const visualBar = '━'.repeat(filledBlocks) + '─'.repeat(totalBlocks - filledBlocks);
                 
-                // Pas d'émoji 🍅 ici, juste le texte
                 document.title = `[${visualBar}] ${isBreak ? 'Pause' : 'Focus'}`; 
 
                 document.getElementById('progress-bar').style.width = `${percent}%`;
