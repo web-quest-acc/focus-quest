@@ -12,17 +12,56 @@
             --success-color: #00b894; --danger-color: #d63031; --break-color: #55efc4;
         }
         body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; height: 100vh; display: flex; overflow: hidden; transition: background-color 0.5s; }
+        
+        /* --- HEADER (NOUVEAU) --- */
+        .top-bar {
+            position: absolute; top: 0; right: 0; padding: 20px;
+            display: flex; gap: 15px; z-index: 100;
+        }
+        .icon-btn {
+            background: rgba(255,255,255,0.1); border: none; color: #aaa;
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+            display: flex; justify-content: center; align-items: center;
+            transition: all 0.2s;
+        }
+        .icon-btn:hover { background: rgba(255,255,255,0.2); color: white; transform: scale(1.1); }
+        .icon-svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* --- MODAL (NOUVEAU) --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 200;
+            display: none; justify-content: center; align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        .modal-box {
+            background: var(--surface-color); padding: 30px; border-radius: 15px;
+            width: 300px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #444;
+        }
+        .modal-title { margin-top: 0; color: white; font-weight: 300; letter-spacing: 1px; }
+        
+        .setting-row { display: flex; justify-content: space-between; align-items: center; margin: 20px 0; }
+        .setting-input {
+            background: #222; border: 1px solid #444; color: white; padding: 8px;
+            width: 60px; text-align: center; border-radius: 5px; font-size: 1rem;
+        }
+        
+        .btn-save { background: var(--success-color); color: white; width: 100%; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .btn-close { background: transparent; color: #888; border: none; margin-top: 10px; cursor: pointer; font-size: 0.9rem; text-decoration: underline; }
+
+        /* --- SIDEBAR --- */
         .sidebar { width: 350px; background-color: var(--surface-color); padding: 20px; display: flex; flex-direction: column; border-right: 1px solid #444; transition: transform 0.3s ease; z-index: 10; }
         .add-task-wrapper { background: #222; padding: 15px; border-radius: 12px; margin-bottom: 20px; }
         input[type="text"] { width: 100%; padding: 12px; margin-bottom: 15px; background: #333; border: 1px solid #444; color: white; border-radius: 6px; outline: none; box-sizing: border-box; font-size: 1rem; }
         input[type="text"]:focus { border-color: #666; }
         .category-selector { display: flex; justify-content: space-between; margin-bottom: 15px; }
-        .cat-option { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s; position: relative; }
-        .cat-option:hover { transform: scale(1.1); }
-        .cat-option.selected { border-color: white; transform: scale(1.2); }
+        .cat-option { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s; position: relative; font-size: 1.5rem; line-height: 30px; text-align: center; filter: grayscale(1) opacity(0.5); }
+        .cat-option:hover { transform: scale(1.1); filter: grayscale(0) opacity(1); }
+        .cat-option.selected { transform: scale(1.3); filter: grayscale(0) opacity(1); text-shadow: 0 0 10px currentColor; }
         .cat-option::after { content: attr(data-label); position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); font-size: 0.7rem; color: #aaa; white-space: nowrap; opacity: 0; pointer-events: none; }
         .cat-option:hover::after { opacity: 1; }
-        .cat-deep { background: var(--cat-deep); } .cat-admin { background: var(--cat-admin); } .cat-learn { background: var(--cat-learn); } .cat-create { background: var(--cat-create); }
+        .cat-deep { color: var(--cat-deep); } .cat-admin { color: var(--cat-admin); } .cat-learn { color: var(--cat-learn); } .cat-create { color: var(--cat-create); }
         .est-selector { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; color: white; font-size: 0.95rem; font-weight: 500; }
         .est-input { background: #333; color: white; border: 1px solid #444; padding: 5px; width: 50px; text-align: center; border-radius: 4px; font-size: 1rem; }
         .add-btn { background: #636e72; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem; }
@@ -38,13 +77,17 @@
         .dot.filled { background-color: #fff; border-color: #fff; } .dot.excess { background-color: var(--danger-color); border-color: var(--danger-color); }
         .check-btn { background: transparent; border: 1px solid #666; color: #666; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; display: flex; justify-content: center; align-items: center; }
         .check-btn:hover { border-color: var(--success-color); color: var(--success-color); }
+        
+        /* --- MAIN AREA --- */
         .main-area { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
         .timer-display { font-size: 8rem; font-weight: 200; margin: 0; line-height: 1; user-select: none; font-variant-numeric: tabular-nums; }
         .status-badge { padding: 5px 15px; border-radius: 20px; background: #333; color: #aaa; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: bold; }
         .controls { display: flex; gap: 20px; margin-top: 40px; }
         .btn-control { padding: 15px 40px; font-size: 1rem; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; transition: transform 0.1s; }
         .btn-control:active { transform: scale(0.95); }
-        body.zen-mode .sidebar { transform: translateX(-100%); width: 0; padding: 0; opacity: 0; }
+        
+        /* Modes */
+        body.zen-mode .sidebar, body.zen-mode .top-bar { opacity: 0; pointer-events: none; } /* Cache aussi le header en Zen */
         body.zen-mode .timer-display { color: #252525; transition: color 0.5s; }
         body.zen-mode .timer-display:hover { color: #444; }
         body.zen-mode { cursor: none; }
@@ -56,21 +99,48 @@
 </head>
 <body>
     <audio id="alarm-sound" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3" preload="auto"></audio>
+
+    <div class="top-bar">
+        <button class="icon-btn" onclick="openStats()" title="Statistiques">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+        </button>
+        <button class="icon-btn" onclick="openSettings()" title="Réglages">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84a.484.484 0 0 0-.48.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.488.488 0 0 0-.59.22L2.05 8.87a.49.49 0 0 0 .12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.27.41.48.41h3.84c.24 0 .44-.17.48-.41l.36-2.54c.59-.24 1.13-.57 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+        </button>
+    </div>
+
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal-box">
+            <h2 class="modal-title">Paramètres</h2>
+            <div class="setting-row">
+                <span>Temps Focus (min)</span>
+                <input type="number" id="setting-work" class="setting-input" value="25" min="1" max="60">
+            </div>
+            <div class="setting-row">
+                <span>Temps Pause (min)</span>
+                <input type="number" id="setting-break" class="setting-input" value="5" min="1" max="30">
+            </div>
+            <button class="btn-save" onclick="saveSettings()">Enregistrer</button>
+            <button class="btn-close" onclick="closeSettings()">Annuler</button>
+        </div>
+    </div>
+
     <div class="sidebar">
         <h2 style="color: #666; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px;">Planning</h2>
         <div class="add-task-wrapper">
             <input type="text" id="new-task-title" placeholder="Nouvelle tâche...">
             <div class="category-selector">
-                <div class="cat-option cat-deep selected" data-cat="deep" data-label="Focus" onclick="selectCat('deep')"></div>
-                <div class="cat-option cat-admin" data-cat="admin" data-label="Admin" onclick="selectCat('admin')"></div>
-                <div class="cat-option cat-learn" data-cat="learn" data-label="Étude" onclick="selectCat('learn')"></div>
-                <div class="cat-option cat-create" data-cat="create" data-label="Créa" onclick="selectCat('create')"></div>
+                <div class="cat-option cat-deep selected" data-cat="deep" data-label="Focus" onclick="selectCat('deep')">👹</div>
+                <div class="cat-option cat-admin" data-cat="admin" data-label="Admin" onclick="selectCat('admin')">🤖</div>
+                <div class="cat-option cat-learn" data-cat="learn" data-label="Étude" onclick="selectCat('learn')">🤓</div>
+                <div class="cat-option cat-create" data-cat="create" data-label="Créa" onclick="selectCat('create')">👽</div>
             </div>
             <div class="est-selector"><span>Nombre de sessions :</span><input type="number" id="new-task-est" value="1" min="1" max="10" class="est-input"></div>
             <button class="add-btn" onclick="addTask()">Ajouter</button>
         </div>
         <div class="task-list" id="task-list"></div>
     </div>
+    
     <div class="main-area">
         <div class="status-badge" id="status-text">Prêt à travailler</div>
         <div style="text-align: center; margin-bottom: 20px; min-height: 30px;"><div id="current-task-display" style="font-size: 1.5rem; color: #888;">...</div></div>
@@ -82,17 +152,56 @@
         </div>
     </div>
     <div class="progress-bar" id="progress-bar"></div>
+
     <script>
-        const WORK_TIME = 25 * 60; const BREAK_TIME = 5 * 60;
+        /* CONFIG DEFAUT */
+        let settings = { work: 25, break: 5 };
+        
         const CATEGORIES = { 'deep': { color: '#ff7675', label: 'Deep Work' }, 'admin': { color: '#74b9ff', label: 'Routine' }, 'learn': { color: '#ffeaa7', label: 'Étude' }, 'create': { color: '#a29bfe', label: 'Créatif' } };
-        let tasks = []; let activeTaskId = null; let selectedCategory = 'deep'; let timerInterval = null; let endTime = 0; let isBreak = false; let totalTime = WORK_TIME;
+        let tasks = []; let activeTaskId = null; let selectedCategory = 'deep'; let timerInterval = null; let endTime = 0; let isBreak = false; let totalTime = settings.work * 60;
 
         function init() {
-            const saved = localStorage.getItem('focusTasks_v5');
-            if (saved) tasks = JSON.parse(saved);
+            const savedTasks = localStorage.getItem('focusTasks_v5');
+            if (savedTasks) tasks = JSON.parse(savedTasks);
+            
+            // Chargement des préférences
+            const savedSettings = localStorage.getItem('focusSettings');
+            if (savedSettings) {
+                settings = JSON.parse(savedSettings);
+            }
+            // Appliquer le temps par défaut à l'affichage
+            resetUI();
+            
             renderTasks();
             document.body.addEventListener('click', () => { const audio = document.getElementById('alarm-sound'); audio.volume = 1.0; }, { once: true });
         }
+
+        /* --- SETTINGS LOGIC --- */
+        function openSettings() {
+            document.getElementById('setting-work').value = settings.work;
+            document.getElementById('setting-break').value = settings.break;
+            document.getElementById('settings-modal').style.display = 'flex';
+        }
+        function closeSettings() {
+            document.getElementById('settings-modal').style.display = 'none';
+        }
+        function saveSettings() {
+            const w = parseInt(document.getElementById('setting-work').value);
+            const b = parseInt(document.getElementById('setting-break').value);
+            if(w > 0 && b > 0) {
+                settings.work = w;
+                settings.break = b;
+                localStorage.setItem('focusSettings', JSON.stringify(settings));
+                closeSettings();
+                if(!timerInterval) resetUI(); // Met à jour l'affichage si le timer ne tourne pas
+                alert("Paramètres sauvegardés !");
+            }
+        }
+        function openStats() {
+            alert("🚧 Statistiques en construction...\nNous allons définir ensemble ce que vous voulez voir ici !");
+        }
+
+        /* --- CORE LOGIC --- */
         function selectCat(cat) { selectedCategory = cat; document.querySelectorAll('.cat-option').forEach(el => el.classList.remove('selected')); document.querySelector(`.cat-option[data-cat="${cat}"]`).classList.add('selected'); }
         function addTask() {
             const title = document.getElementById('new-task-title').value; const est = document.getElementById('new-task-est').value;
@@ -113,29 +222,31 @@
                 }
                 const item = document.createElement('div'); item.className = `task-item ${activeTaskId === task.id ? 'active' : ''} ${task.isDone ? 'completed' : ''}`; item.style.borderLeftColor = catData.color;
                 item.onclick = (e) => { if(!e.target.classList.contains('check-btn')) selectTask(task.id); };
-                item.innerHTML = `<div class="task-top"><span class="task-title">${task.title}</span><button class="check-btn" onclick="toggleDone(${task.id})">✓</button></div><div class="pomo-dots">${dotsHtml}</div>`;
+                item.innerHTML = `<div class="task-top"><span class="task-title">${CATEGORIES[task.cat].emoji || ''} ${task.title}</span><button class="check-btn" onclick="toggleDone(${task.id})">✓</button></div><div class="pomo-dots">${dotsHtml}</div>`;
                 list.appendChild(item);
             });
         }
         function selectTask(id) { const task = tasks.find(t => t.id === id); if(!task || task.isDone) return; activeTaskId = id; document.getElementById('current-task-display').innerText = task.title; renderTasks(); }
         function toggleDone(id) { const task = tasks.find(t => t.id === id); task.isDone = !task.isDone; save(); renderTasks(); }
         function save() { localStorage.setItem('focusTasks_v5', JSON.stringify(tasks)); }
+        
         function startTimer() {
             if(!activeTaskId && !isBreak) { alert("Sélectionne une tâche !"); return; }
-            totalTime = isBreak ? BREAK_TIME : WORK_TIME; endTime = Date.now() + (totalTime * 1000);
+            totalTime = (isBreak ? settings.break : settings.work) * 60; // Utilise les settings
+            endTime = Date.now() + (totalTime * 1000);
             if(!isBreak) { document.body.classList.add('zen-mode'); const task = tasks.find(t => t.id === activeTaskId); document.getElementById('progress-bar').style.backgroundColor = CATEGORIES[task.cat].color; } 
             else { document.body.classList.add('break-mode'); document.getElementById('status-text').innerText = "PAUSE MÉRITÉE"; document.getElementById('btn-skip-break').style.display = 'inline-block'; document.getElementById('progress-bar').style.backgroundColor = 'var(--break-color)'; }
             document.getElementById('btn-start').style.display = 'none'; if(!isBreak) document.getElementById('btn-stop').style.display = 'inline-block';
             clearInterval(timerInterval); updateTick(); timerInterval = setInterval(updateTick, 1000);
         }
+        
         function updateTick() {
             const now = Date.now(); const timeLeft = Math.ceil((endTime - now) / 1000);
             if (timeLeft >= 0) {
                 const m = Math.floor(timeLeft / 60); const s = timeLeft % 60; const timeString = `${m}:${s < 10 ? '0' : ''}${s}`;
                 document.getElementById('timer').innerText = timeString;
-                const percent = ((totalTime - timeLeft) / totalTime) * 100;
                 
-                // --- MODIFICATION V5.6 (Barre Épaisse + 15 blocs) ---
+                const percent = ((totalTime - timeLeft) / totalTime) * 100;
                 const totalBlocks = 15;
                 const filledBlocks = Math.round((percent / 100) * totalBlocks);
                 const visualBar = '▬'.repeat(filledBlocks) + '─'.repeat(totalBlocks - filledBlocks);
@@ -144,6 +255,7 @@
                 document.getElementById('progress-bar').style.width = `${percent}%`;
             } else { clearInterval(timerInterval); finishCycle(); }
         }
+        
         function finishCycle() {
             const audio = document.getElementById('alarm-sound'); if(audio) audio.play().catch(() => {});
             document.title = "🔔 Terminé !";
@@ -157,7 +269,12 @@
         }
         function stopTimer() { clearInterval(timerInterval); document.body.classList.remove('zen-mode'); resetUI(); document.title = "Focus Quest"; }
         function skipBreak() { clearInterval(timerInterval); finishCycle(); }
-        function resetUI() { document.getElementById('timer').innerText = "25:00"; document.getElementById('progress-bar').style.width = "0%"; document.getElementById('btn-start').style.display = 'inline-block'; document.getElementById('btn-stop').style.display = 'none'; document.getElementById('btn-skip-break').style.display = 'none'; }
+        
+        function resetUI() { 
+            // Affiche le temps configuré
+            document.getElementById('timer').innerText = `${settings.work}:00`; 
+            document.getElementById('progress-bar').style.width = "0%"; document.getElementById('btn-start').style.display = 'inline-block'; document.getElementById('btn-stop').style.display = 'none'; document.getElementById('btn-skip-break').style.display = 'none'; 
+        }
         init();
     </script>
 </body>
