@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,6 +11,7 @@
             --bg-color: #1a1a1a; --surface-color: #2d3436; --text-color: #e0e0e0;
             --cat-deep: #ff7675; --cat-admin: #74b9ff; --cat-learn: #ffeaa7; --cat-create: #a29bfe;
             --success-color: #00b894; --danger-color: #d63031; --break-color: #55efc4;
+            --xp-color: #f1c40f;
         }
         body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; height: 100vh; display: flex; overflow: hidden; transition: background-color 0.5s; }
         
@@ -20,27 +22,41 @@
         .icon-svg { width: 20px; height: 20px; fill: currentColor; }
 
         /* MODALS */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 200; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .modal-box { background: var(--surface-color); padding: 30px; border-radius: 15px; width: 400px; max-width: 90%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #444; max-height: 90vh; overflow-y: auto; }
-        .modal-title { margin-top: 0; color: white; font-weight: 300; letter-spacing: 1px; margin-bottom: 20px; border-bottom: 1px solid #444; padding-bottom: 10px; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 200; display: none; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
+        .modal-box { background: #222; padding: 30px; border-radius: 20px; width: 500px; max-width: 95%; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid #444; max-height: 90vh; overflow-y: auto; }
+        .modal-title { margin-top: 0; color: white; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px; font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; }
         
         .setting-row { display: flex; justify-content: space-between; align-items: center; margin: 15px 0; }
-        .setting-input { background: #222; border: 1px solid #444; color: white; padding: 8px; width: 60px; text-align: center; border-radius: 5px; font-size: 1rem; }
-        .btn-save { background: var(--success-color); color: white; width: 100%; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; }
-        .btn-close { background: transparent; color: #888; border: none; margin-top: 10px; cursor: pointer; font-size: 0.9rem; text-decoration: underline; }
-
+        .setting-input { background: #111; border: 1px solid #444; color: white; padding: 8px; width: 60px; text-align: center; border-radius: 5px; font-size: 1rem; }
+        
         /* STATS WIDGETS */
-        .stat-card { background: #222; border-radius: 10px; padding: 15px; margin-bottom: 15px; text-align: left; }
-        .stat-label { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; }
-        .stat-value { font-size: 1.5rem; font-weight: bold; color: white; }
-        .dist-bar-container { display: flex; height: 10px; border-radius: 5px; overflow: hidden; margin-top: 10px; width: 100%; background: #333; }
-        .dist-segment { height: 100%; }
-        .chart-container { display: flex; align-items: flex-end; justify-content: space-between; height: 100px; margin-top: 10px; gap: 2px; }
-        .chart-bar { background: var(--success-color); width: 100%; border-radius: 2px 2px 0 0; opacity: 0.7; transition: height 0.5s; position: relative; }
-        .chart-bar:hover { opacity: 1; }
-        .chart-labels { display: flex; justify-content: space-between; font-size: 0.6rem; color: #666; margin-top: 5px; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .stat-card { background: #2d3436; border-radius: 12px; padding: 15px; text-align: left; position: relative; overflow: hidden; }
+        .stat-card.full-width { grid-column: span 2; }
+        .stat-label { font-size: 0.75rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; font-weight: bold; }
+        .stat-value { font-size: 1.8rem; font-weight: 800; color: white; }
+        .stat-sub { font-size: 0.8rem; color: #666; margin-top: 2px; }
 
-        /* SIDEBAR */
+        /* XP BAR & LEVEL */
+        .level-badge { background: var(--xp-color); color: black; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; vertical-align: middle; margin-left: 10px; }
+        .xp-container { background: #111; height: 8px; border-radius: 4px; margin-top: 10px; overflow: hidden; position: relative; }
+        .xp-bar { height: 100%; background: linear-gradient(90deg, #f1c40f, #e67e22); width: 0%; transition: width 1s ease; }
+        
+        /* WEEKLY CHART */
+        .chart-frame { display: flex; align-items: flex-end; justify-content: space-between; height: 120px; padding-top: 20px; gap: 5px; }
+        .bar-group { display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .bar-visual { width: 100%; background: #444; border-radius: 4px; transition: height 0.5s; min-height: 4px; position: relative; }
+        .bar-visual:hover { background: var(--success-color); }
+        .bar-visual.today { background: var(--success-color); box-shadow: 0 0 10px rgba(0, 184, 148, 0.4); }
+        .bar-day { font-size: 0.7rem; color: #888; margin-top: 8px; }
+        .bar-val { font-size: 0.7rem; color: white; margin-bottom: 5px; opacity: 0; transition: opacity 0.2s; }
+        .bar-group:hover .bar-val { opacity: 1; }
+
+        .btn-save { background: var(--success-color); color: white; width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .btn-close { position: absolute; top: 20px; right: 20px; background: transparent; border: none; color: #666; cursor: pointer; font-size: 1.5rem; line-height: 0.5; }
+        .btn-close:hover { color: white; }
+
+        /* SIDEBAR & MAIN */
         .sidebar { width: 350px; background-color: var(--surface-color); padding: 20px; display: flex; flex-direction: column; border-right: 1px solid #444; transition: transform 0.3s ease; z-index: 10; }
         .add-task-wrapper { background: #222; padding: 15px; border-radius: 12px; margin-bottom: 20px; }
         input[type="text"] { width: 100%; padding: 12px; margin-bottom: 15px; background: #333; border: 1px solid #444; color: white; border-radius: 6px; outline: none; box-sizing: border-box; font-size: 1rem; }
@@ -89,7 +105,7 @@
     <audio id="alarm-sound" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3" preload="auto"></audio>
 
     <div class="top-bar">
-        <button class="icon-btn" onclick="openStats()" title="Statistiques">
+        <button class="icon-btn" onclick="openStats()" title="Tableau de bord">
             <svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
         </button>
         <button class="icon-btn" onclick="openSettings()" title="Réglages">
@@ -98,37 +114,41 @@
     </div>
 
     <div class="modal-overlay" id="settings-modal">
-        <div class="modal-box">
+        <div class="modal-box" style="width: 300px;">
+            <button class="btn-close" onclick="closeModal('settings-modal')">×</button>
             <h2 class="modal-title">Réglages</h2>
-            <div class="setting-row"><span>Temps Focus (min)</span><input type="number" id="setting-work" class="setting-input" value="25" min="1" max="60"></div>
-            <div class="setting-row"><span>Temps Pause (min)</span><input type="number" id="setting-break" class="setting-input" value="5" min="1" max="30"></div>
+            <div class="setting-row"><span>Focus (min)</span><input type="number" id="setting-work" class="setting-input" value="25" min="1" max="60"></div>
+            <div class="setting-row"><span>Pause (min)</span><input type="number" id="setting-break" class="setting-input" value="5" min="1" max="30"></div>
             <button class="btn-save" onclick="saveSettings()">Sauvegarder</button>
-            <button class="btn-close" onclick="closeModal('settings-modal')">Fermer</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="stats-modal">
         <div class="modal-box">
-            <h2 class="modal-title">Statistiques</h2>
-            <div class="stat-card">
-                <span class="stat-label">Temps Focus Total</span>
-                <span class="stat-value" id="stat-total-time">0h 00m</span>
+            <button class="btn-close" onclick="closeModal('stats-modal')">×</button>
+            <h2 class="modal-title">Mon Profil <span id="level-badge" class="level-badge">Lvl 1</span></h2>
+            <div style="text-align: left; margin-bottom: 20px;">
+                <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#aaa;"><span>XP</span><span id="xp-text">0 / 100</span></div>
+                <div class="xp-container"><div class="xp-bar" id="xp-bar"></div></div>
             </div>
-            <div class="stat-card">
-                <span class="stat-label">Précision (Planning Fallacy)</span>
-                <span class="stat-value" id="stat-accuracy">--%</span>
-                <p style="font-size: 0.7rem; color: #666; margin: 5px 0 0 0;">(Sessions estimées vs réelles)</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">🔥 Série (Streak)</span><span class="stat-value" id="stat-streak">0</span><div class="stat-sub">Jours consécutifs</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">⏱️ Total Focus</span><span class="stat-value" id="stat-hours">0h</span><div class="stat-sub">Temps productif</div>
+                </div>
+                <div class="stat-card full-width">
+                    <span class="stat-label">Activité (7 derniers jours)</span>
+                    <div class="chart-frame" id="weekly-chart"></div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">🎯 Précision</span><span class="stat-value" id="stat-accuracy">--%</span><div class="stat-sub">Estimé vs Réel</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">🏆 Record Jour</span><span class="stat-value" id="stat-record">0</span><div class="stat-sub">Sessions max</div>
+                </div>
             </div>
-            <div class="stat-card">
-                <span class="stat-label">Répartition</span>
-                <div class="dist-bar-container" id="dist-bar"></div>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Bio-Rythme (24h)</span>
-                <div class="chart-container" id="bio-chart"></div>
-                <div class="chart-labels"><span>00h</span><span>06h</span><span>12h</span><span>18h</span><span>24h</span></div>
-            </div>
-            <button class="btn-close" onclick="closeModal('stats-modal')">Fermer</button>
         </div>
     </div>
 
@@ -174,60 +194,95 @@
             document.body.addEventListener('click', () => { const audio = document.getElementById('alarm-sound'); audio.volume = 1.0; }, { once: true });
         }
 
-        /* --- MODALS --- */
         function openSettings() { document.getElementById('setting-work').value = settings.work; document.getElementById('setting-break').value = settings.break; document.getElementById('settings-modal').style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
         function saveSettings() { const w = parseInt(document.getElementById('setting-work').value); const b = parseInt(document.getElementById('setting-break').value); if(w > 0 && b > 0) { settings.work = w; settings.break = b; localStorage.setItem('focusSettings', JSON.stringify(settings)); closeModal('settings-modal'); if(!timerInterval) resetUI(); } }
+        
         function openStats() { calculateStats(); document.getElementById('stats-modal').style.display = 'flex'; }
 
-        /* --- STATS --- */
+        /* --- STREAK LOGIC UPDATED (WEEKEND MODE) --- */
         function calculateStats() {
-            let totalSessions = 0; let totalEst = 0; let totalActual = 0;
-            let dist = { 'deep': 0, 'admin': 0, 'learn': 0, 'create': 0 };
-            let hoursDistribution = new Array(24).fill(0);
-
+            let totalPomodoros = 0; let totalEst = 0; let totalActual = 0; let dailyCounts = {}; 
+            
             tasks.forEach(t => {
-                totalSessions += t.completedPomodoros;
-                dist[t.cat] += t.completedPomodoros;
+                totalPomodoros += t.completedPomodoros;
                 if(t.completedPomodoros > 0) { totalEst += t.estimated; totalActual += t.completedPomodoros; }
-                if(t.sessionTimestamps) { t.sessionTimestamps.forEach(ts => { const h = new Date(ts).getHours(); hoursDistribution[h]++; }); }
+                if(t.sessionTimestamps) {
+                    t.sessionTimestamps.forEach(ts => {
+                        const dateKey = ts.split('T')[0];
+                        dailyCounts[dateKey] = (dailyCounts[dateKey] || 0) + 1;
+                    });
+                }
             });
 
-            // Temps Total
-            const totalMinutes = totalSessions * settings.work;
-            const h = Math.floor(totalMinutes / 60); const m = totalMinutes % 60;
-            document.getElementById('stat-total-time').innerText = `${h}h ${m}m`;
+            // XP & LEVEL
+            const totalXP = totalPomodoros * 100;
+            const currentLevel = Math.floor(Math.sqrt(totalXP / 100)) + 1;
+            const nextLevelXP = Math.pow(currentLevel, 2) * 100;
+            const prevLevelXP = Math.pow(currentLevel - 1, 2) * 100;
+            const xpPercent = Math.min(100, Math.max(0, ((totalXP - prevLevelXP) / (nextLevelXP - prevLevelXP)) * 100));
+            document.getElementById('level-badge').innerText = `Lvl ${currentLevel}`;
+            document.getElementById('xp-text').innerText = `${Math.floor(totalXP - prevLevelXP)} / ${nextLevelXP - prevLevelXP} XP`;
+            document.getElementById('xp-bar').style.width = `${xpPercent}%`;
 
-            // Précision
-            if(totalActual > 0) {
-                const acc = Math.round((Math.min(totalEst, totalActual) / Math.max(totalEst, totalActual)) * 100);
-                document.getElementById('stat-accuracy').innerText = `${acc}%`;
-            } else { document.getElementById('stat-accuracy').innerText = "--"; }
+            // WEEKLY CHART
+            const chart = document.getElementById('weekly-chart'); chart.innerHTML = '';
+            const days = ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'];
+            const today = new Date(); let maxDaily = 0;
+            let last7Days = [];
+            for(let i=6; i>=0; i--) {
+                const d = new Date(); d.setDate(today.getDate() - i);
+                const key = d.toISOString().split('T')[0];
+                const count = dailyCounts[key] || 0;
+                if(count > maxDaily) maxDaily = count;
+                last7Days.push({ day: days[d.getDay()], count: count, isToday: i===0 });
+            }
+            last7Days.forEach(d => {
+                const hPct = maxDaily > 0 ? (d.count / maxDaily) * 100 : 0;
+                const group = document.createElement('div'); group.className = 'bar-group';
+                group.innerHTML = `<div class="bar-val">${d.count}</div><div class="bar-visual ${d.isToday ? 'today' : ''}" style="height: ${Math.max(4, hPct * 0.8)}%"></div><div class="bar-day">${d.day}</div>`;
+                chart.appendChild(group);
+            });
 
-            // Répartition
-            const barContainer = document.getElementById('dist-bar'); barContainer.innerHTML = '';
-            if(totalSessions > 0) {
-                for (const [cat, count] of Object.entries(dist)) {
-                    if(count > 0) {
-                        const pct = (count / totalSessions) * 100; const div = document.createElement('div');
-                        div.style.width = `${pct}%`; div.style.backgroundColor = CATEGORIES[cat].color; div.className = 'dist-segment';
-                        barContainer.appendChild(div);
+            // STREAK (AVEC TOLERANCE WEEKEND)
+            let streak = 0;
+            let checkDate = new Date();
+            while(true) {
+                const key = checkDate.toISOString().split('T')[0];
+                const isWeekend = (checkDate.getDay() === 0 || checkDate.getDay() === 6); // 0=Dim, 6=Sam
+                
+                if(dailyCounts[key] && dailyCounts[key] > 0) {
+                    streak++;
+                    checkDate.setDate(checkDate.getDate() - 1); // Jour précédent
+                } else {
+                    // Si pas de travail
+                    if (isWeekend) {
+                        // C'est le weekend : on pardonne, on recule sans casser la chaîne
+                        checkDate.setDate(checkDate.getDate() - 1);
+                    } else {
+                        // C'est la semaine...
+                        const todayKey = new Date().toISOString().split('T')[0];
+                        // Tolérance pour "Aujourd'hui" si vide (on ne casse pas la chaîne d'hier)
+                        if (key === todayKey) {
+                            checkDate.setDate(checkDate.getDate() - 1);
+                        } else {
+                            break; // Cassé
+                        }
                     }
                 }
             }
+            document.getElementById('stat-streak').innerText = streak;
 
-            // Bio-Rythme
-            const chart = document.getElementById('bio-chart'); chart.innerHTML = '';
-            const maxVal = Math.max(...hoursDistribution, 1);
-            hoursDistribution.forEach(val => {
-                const bar = document.createElement('div'); bar.className = 'chart-bar';
-                const heightPct = (val / maxVal) * 100; bar.style.height = `${heightPct}%`;
-                if(val === 0) { bar.style.height = '2px'; bar.style.opacity = '0.2'; }
-                chart.appendChild(bar);
-            });
+            // OTHER KPIS
+            const h = Math.floor((totalPomodoros * settings.work) / 60);
+            document.getElementById('stat-hours').innerText = `${h}h`;
+            const acc = totalActual > 0 ? Math.round((Math.min(totalEst, totalActual) / Math.max(totalEst, totalActual)) * 100) : "--";
+            document.getElementById('stat-accuracy').innerText = `${acc}%`;
+            const record = Math.max(...Object.values(dailyCounts), 0);
+            document.getElementById('stat-record').innerText = record;
         }
 
-        /* --- LOGIC --- */
+        /* --- CORE --- */
         function selectCat(cat) { selectedCategory = cat; document.querySelectorAll('.cat-option').forEach(el => el.classList.remove('selected')); document.querySelector(`.cat-option[data-cat="${cat}"]`).classList.add('selected'); }
         function addTask() {
             const title = document.getElementById('new-task-title').value; const est = document.getElementById('new-task-est').value;
@@ -239,12 +294,8 @@
         }
         function renderTasks() {
             const list = document.getElementById('task-list'); list.innerHTML = '';
-            // --- MODIFICATION V9 : FILTRE CLEAN SLATE ---
             const today = new Date().toISOString().split('T')[0];
-            
-            // On affiche si : PAS FINIE ... OU ... FINIE AUJOURD'HUI
             const visibleTasks = tasks.filter(t => !t.isDone || (t.finishedDate === today) || (!t.finishedDate && t.date === today)); 
-            
             visibleTasks.forEach(task => {
                 const catData = CATEGORIES[task.cat]; const totalDots = Math.max(task.estimated, task.completedPomodoros); let dotsHtml = '';
                 for(let i=0; i<totalDots; i++) {
@@ -259,19 +310,8 @@
             });
         }
         function selectTask(id) { const task = tasks.find(t => t.id === id); if(!task || task.isDone) return; activeTaskId = id; document.getElementById('current-task-display').innerText = task.title; renderTasks(); }
-        
-        function toggleDone(id) { 
-            const task = tasks.find(t => t.id === id); 
-            task.isDone = !task.isDone; 
-            // --- MODIFICATION V9 : SAVE FINISHED DATE ---
-            if(task.isDone) task.finishedDate = new Date().toISOString().split('T')[0];
-            else task.finishedDate = null;
-            
-            save(); renderTasks(); 
-        }
-        
+        function toggleDone(id) { const task = tasks.find(t => t.id === id); task.isDone = !task.isDone; if(task.isDone) task.finishedDate = new Date().toISOString().split('T')[0]; else task.finishedDate = null; save(); renderTasks(); }
         function save() { localStorage.setItem('focusTasks_v5', JSON.stringify(tasks)); }
-        
         function startTimer() {
             if(!activeTaskId && !isBreak) { alert("Sélectionne une tâche !"); return; }
             totalTime = (isBreak ? settings.break : settings.work) * 60; endTime = Date.now() + (totalTime * 1000);
@@ -280,7 +320,6 @@
             document.getElementById('btn-start').style.display = 'none'; if(!isBreak) document.getElementById('btn-stop').style.display = 'inline-block';
             clearInterval(timerInterval); updateTick(); timerInterval = setInterval(updateTick, 1000);
         }
-        
         function updateTick() {
             const now = Date.now(); const timeLeft = Math.ceil((endTime - now) / 1000);
             if (timeLeft >= 0) {
@@ -292,7 +331,6 @@
                 document.getElementById('progress-bar').style.width = `${percent}%`;
             } else { clearInterval(timerInterval); finishCycle(); }
         }
-        
         function finishCycle() {
             const audio = document.getElementById('alarm-sound'); if(audio) audio.play().catch(() => {});
             document.title = "🔔 Terminé !";
