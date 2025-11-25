@@ -19,7 +19,7 @@
         .icon-btn:hover { background: rgba(255,255,255,0.2); color: white; transform: scale(1.1); }
         .icon-svg { width: 20px; height: 20px; fill: currentColor; }
 
-        /* MODALS (Settings & Stats) */
+        /* MODALS */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 200; display: none; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
         .modal-box { background: var(--surface-color); padding: 30px; border-radius: 15px; width: 400px; max-width: 90%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #444; max-height: 90vh; overflow-y: auto; }
         .modal-title { margin-top: 0; color: white; font-weight: 300; letter-spacing: 1px; margin-bottom: 20px; border-bottom: 1px solid #444; padding-bottom: 10px; }
@@ -33,12 +33,8 @@
         .stat-card { background: #222; border-radius: 10px; padding: 15px; margin-bottom: 15px; text-align: left; }
         .stat-label { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; }
         .stat-value { font-size: 1.5rem; font-weight: bold; color: white; }
-        
-        /* Barres de répartition */
         .dist-bar-container { display: flex; height: 10px; border-radius: 5px; overflow: hidden; margin-top: 10px; width: 100%; background: #333; }
         .dist-segment { height: 100%; }
-
-        /* Bio-Rythme Chart */
         .chart-container { display: flex; align-items: flex-end; justify-content: space-between; height: 100px; margin-top: 10px; gap: 2px; }
         .chart-bar { background: var(--success-color); width: 100%; border-radius: 2px 2px 0 0; opacity: 0.7; transition: height 0.5s; position: relative; }
         .chart-bar:hover { opacity: 1; }
@@ -49,8 +45,6 @@
         .add-task-wrapper { background: #222; padding: 15px; border-radius: 12px; margin-bottom: 20px; }
         input[type="text"] { width: 100%; padding: 12px; margin-bottom: 15px; background: #333; border: 1px solid #444; color: white; border-radius: 6px; outline: none; box-sizing: border-box; font-size: 1rem; }
         input[type="text"]:focus { border-color: #666; }
-        
-        /* SELECTEUR RONDS (RETOUR AUX SOURCES) */
         .category-selector { display: flex; justify-content: space-between; margin-bottom: 15px; }
         .cat-option { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s; position: relative; }
         .cat-option:hover { transform: scale(1.1); }
@@ -58,13 +52,11 @@
         .cat-option::after { content: attr(data-label); position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); font-size: 0.7rem; color: #aaa; white-space: nowrap; opacity: 0; pointer-events: none; }
         .cat-option:hover::after { opacity: 1; }
         .cat-deep { background: var(--cat-deep); } .cat-admin { background: var(--cat-admin); } .cat-learn { background: var(--cat-learn); } .cat-create { background: var(--cat-create); }
-
         .est-selector { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; color: white; font-size: 0.95rem; font-weight: 500; }
         .est-input { background: #333; color: white; border: 1px solid #444; padding: 5px; width: 50px; text-align: center; border-radius: 4px; font-size: 1rem; }
         .add-btn { background: #636e72; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem; }
         .add-btn:hover { background: #b2bec3; color: #2d3436; }
         .task-list { flex-grow: 1; overflow-y: auto; }
-        
         .task-item { background: #3a3a3a; padding: 12px 15px; margin-bottom: 8px; border-radius: 8px; cursor: pointer; border-left: 4px solid transparent; transition: all 0.2s; }
         .task-item.active { background: #2f2f35; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1); }
         .task-item.completed { opacity: 0.4; filter: grayscale(100%); }
@@ -76,7 +68,6 @@
         .check-btn { background: transparent; border: 1px solid #666; color: #666; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; display: flex; justify-content: center; align-items: center; }
         .check-btn:hover { border-color: var(--success-color); color: var(--success-color); }
         
-        /* MAIN */
         .main-area { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
         .timer-display { font-size: 8rem; font-weight: 200; margin: 0; line-height: 1; user-select: none; font-variant-numeric: tabular-nums; }
         .status-badge { padding: 5px 15px; border-radius: 20px; background: #333; color: #aaa; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: bold; }
@@ -119,32 +110,24 @@
     <div class="modal-overlay" id="stats-modal">
         <div class="modal-box">
             <h2 class="modal-title">Statistiques</h2>
-            
             <div class="stat-card">
                 <span class="stat-label">Temps Focus Total</span>
                 <span class="stat-value" id="stat-total-time">0h 00m</span>
             </div>
-
             <div class="stat-card">
                 <span class="stat-label">Précision (Planning Fallacy)</span>
                 <span class="stat-value" id="stat-accuracy">--%</span>
                 <p style="font-size: 0.7rem; color: #666; margin: 5px 0 0 0;">(Sessions estimées vs réelles)</p>
             </div>
-
             <div class="stat-card">
                 <span class="stat-label">Répartition</span>
                 <div class="dist-bar-container" id="dist-bar"></div>
             </div>
-
             <div class="stat-card">
                 <span class="stat-label">Bio-Rythme (24h)</span>
-                <div class="chart-container" id="bio-chart">
-                    </div>
-                <div class="chart-labels">
-                    <span>00h</span><span>06h</span><span>12h</span><span>18h</span><span>24h</span>
-                </div>
+                <div class="chart-container" id="bio-chart"></div>
+                <div class="chart-labels"><span>00h</span><span>06h</span><span>12h</span><span>18h</span><span>24h</span></div>
             </div>
-
             <button class="btn-close" onclick="closeModal('stats-modal')">Fermer</button>
         </div>
     </div>
@@ -191,110 +174,60 @@
             document.body.addEventListener('click', () => { const audio = document.getElementById('alarm-sound'); audio.volume = 1.0; }, { once: true });
         }
 
-        /* --- MODALS LOGIC --- */
-        function openSettings() {
-            document.getElementById('setting-work').value = settings.work;
-            document.getElementById('setting-break').value = settings.break;
-            document.getElementById('settings-modal').style.display = 'flex';
-        }
+        /* --- MODALS --- */
+        function openSettings() { document.getElementById('setting-work').value = settings.work; document.getElementById('setting-break').value = settings.break; document.getElementById('settings-modal').style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        
-        function saveSettings() {
-            const w = parseInt(document.getElementById('setting-work').value);
-            const b = parseInt(document.getElementById('setting-break').value);
-            if(w > 0 && b > 0) {
-                settings.work = w; settings.break = b;
-                localStorage.setItem('focusSettings', JSON.stringify(settings));
-                closeModal('settings-modal');
-                if(!timerInterval) resetUI(); 
-            }
-        }
+        function saveSettings() { const w = parseInt(document.getElementById('setting-work').value); const b = parseInt(document.getElementById('setting-break').value); if(w > 0 && b > 0) { settings.work = w; settings.break = b; localStorage.setItem('focusSettings', JSON.stringify(settings)); closeModal('settings-modal'); if(!timerInterval) resetUI(); } }
+        function openStats() { calculateStats(); document.getElementById('stats-modal').style.display = 'flex'; }
 
-        /* --- STATS LOGIC --- */
-        function openStats() {
-            calculateStats();
-            document.getElementById('stats-modal').style.display = 'flex';
-        }
-
+        /* --- STATS --- */
         function calculateStats() {
-            let totalSessions = 0;
-            let totalEst = 0;
-            let totalActual = 0;
+            let totalSessions = 0; let totalEst = 0; let totalActual = 0;
             let dist = { 'deep': 0, 'admin': 0, 'learn': 0, 'create': 0 };
             let hoursDistribution = new Array(24).fill(0);
 
             tasks.forEach(t => {
                 totalSessions += t.completedPomodoros;
                 dist[t.cat] += t.completedPomodoros;
-                
-                // Planning Fallacy (seulement si tâche commencée)
-                if(t.completedPomodoros > 0) {
-                    totalEst += t.estimated;
-                    totalActual += t.completedPomodoros;
-                }
-
-                // Bio-Rhythm (Basé sur les timestamps enregistrés)
-                if(t.sessionTimestamps) {
-                    t.sessionTimestamps.forEach(ts => {
-                        const h = new Date(ts).getHours();
-                        hoursDistribution[h]++;
-                    });
-                }
+                if(t.completedPomodoros > 0) { totalEst += t.estimated; totalActual += t.completedPomodoros; }
+                if(t.sessionTimestamps) { t.sessionTimestamps.forEach(ts => { const h = new Date(ts).getHours(); hoursDistribution[h]++; }); }
             });
 
-            // 1. Total Time
+            // Temps Total
             const totalMinutes = totalSessions * settings.work;
-            const h = Math.floor(totalMinutes / 60);
-            const m = totalMinutes % 60;
+            const h = Math.floor(totalMinutes / 60); const m = totalMinutes % 60;
             document.getElementById('stat-total-time').innerText = `${h}h ${m}m`;
 
-            // 2. Accuracy
+            // Précision
             if(totalActual > 0) {
-                // Formule simple : (Estimé / Réel) * 100. Si > 100%, on inverse.
-                let ratio = totalEst / totalActual;
-                if(ratio > 1) ratio = 1 / ratio; // Penalité si surestimation aussi
-                // Une meilleure approche pour l'utilisateur : Ecart absolu
-                // Ici on simplifie : si j'ai prévu 10 et fait 10, c'est 100%.
-                // Si j'ai prévu 5 et fait 10, c'est 50%.
                 const acc = Math.round((Math.min(totalEst, totalActual) / Math.max(totalEst, totalActual)) * 100);
                 document.getElementById('stat-accuracy').innerText = `${acc}%`;
-            } else {
-                document.getElementById('stat-accuracy').innerText = "--";
-            }
+            } else { document.getElementById('stat-accuracy').innerText = "--"; }
 
-            // 3. Distribution Bar
-            const barContainer = document.getElementById('dist-bar');
-            barContainer.innerHTML = '';
+            // Répartition
+            const barContainer = document.getElementById('dist-bar'); barContainer.innerHTML = '';
             if(totalSessions > 0) {
                 for (const [cat, count] of Object.entries(dist)) {
                     if(count > 0) {
-                        const pct = (count / totalSessions) * 100;
-                        const div = document.createElement('div');
-                        div.style.width = `${pct}%`;
-                        div.style.backgroundColor = CATEGORIES[cat].color;
-                        div.className = 'dist-segment';
+                        const pct = (count / totalSessions) * 100; const div = document.createElement('div');
+                        div.style.width = `${pct}%`; div.style.backgroundColor = CATEGORIES[cat].color; div.className = 'dist-segment';
                         barContainer.appendChild(div);
                     }
                 }
             }
 
-            // 4. Bio-Rhythm Chart
-            const chart = document.getElementById('bio-chart');
-            chart.innerHTML = '';
-            const maxVal = Math.max(...hoursDistribution, 1); // Eviter division par 0
-            
+            // Bio-Rythme
+            const chart = document.getElementById('bio-chart'); chart.innerHTML = '';
+            const maxVal = Math.max(...hoursDistribution, 1);
             hoursDistribution.forEach(val => {
-                const bar = document.createElement('div');
-                bar.className = 'chart-bar';
-                const heightPct = (val / maxVal) * 100;
-                bar.style.height = `${heightPct}%`;
-                // Petite astuce visuelle : si vide, mettre un petit pixel
-                if(val === 0) bar.style.height = '2px'; bar.style.opacity = '0.2';
+                const bar = document.createElement('div'); bar.className = 'chart-bar';
+                const heightPct = (val / maxVal) * 100; bar.style.height = `${heightPct}%`;
+                if(val === 0) { bar.style.height = '2px'; bar.style.opacity = '0.2'; }
                 chart.appendChild(bar);
             });
         }
 
-        /* --- CORE LOGIC --- */
+        /* --- LOGIC --- */
         function selectCat(cat) { selectedCategory = cat; document.querySelectorAll('.cat-option').forEach(el => el.classList.remove('selected')); document.querySelector(`.cat-option[data-cat="${cat}"]`).classList.add('selected'); }
         function addTask() {
             const title = document.getElementById('new-task-title').value; const est = document.getElementById('new-task-est').value;
@@ -306,7 +239,13 @@
         }
         function renderTasks() {
             const list = document.getElementById('task-list'); list.innerHTML = '';
-            tasks.forEach(task => {
+            // --- MODIFICATION V9 : FILTRE CLEAN SLATE ---
+            const today = new Date().toISOString().split('T')[0];
+            
+            // On affiche si : PAS FINIE ... OU ... FINIE AUJOURD'HUI
+            const visibleTasks = tasks.filter(t => !t.isDone || (t.finishedDate === today) || (!t.finishedDate && t.date === today)); 
+            
+            visibleTasks.forEach(task => {
                 const catData = CATEGORIES[task.cat]; const totalDots = Math.max(task.estimated, task.completedPomodoros); let dotsHtml = '';
                 for(let i=0; i<totalDots; i++) {
                     let style = ''; let classes = 'dot';
@@ -320,13 +259,22 @@
             });
         }
         function selectTask(id) { const task = tasks.find(t => t.id === id); if(!task || task.isDone) return; activeTaskId = id; document.getElementById('current-task-display').innerText = task.title; renderTasks(); }
-        function toggleDone(id) { const task = tasks.find(t => t.id === id); task.isDone = !task.isDone; save(); renderTasks(); }
+        
+        function toggleDone(id) { 
+            const task = tasks.find(t => t.id === id); 
+            task.isDone = !task.isDone; 
+            // --- MODIFICATION V9 : SAVE FINISHED DATE ---
+            if(task.isDone) task.finishedDate = new Date().toISOString().split('T')[0];
+            else task.finishedDate = null;
+            
+            save(); renderTasks(); 
+        }
+        
         function save() { localStorage.setItem('focusTasks_v5', JSON.stringify(tasks)); }
         
         function startTimer() {
             if(!activeTaskId && !isBreak) { alert("Sélectionne une tâche !"); return; }
-            totalTime = (isBreak ? settings.break : settings.work) * 60;
-            endTime = Date.now() + (totalTime * 1000);
+            totalTime = (isBreak ? settings.break : settings.work) * 60; endTime = Date.now() + (totalTime * 1000);
             if(!isBreak) { document.body.classList.add('zen-mode'); const task = tasks.find(t => t.id === activeTaskId); document.getElementById('progress-bar').style.backgroundColor = CATEGORIES[task.cat].color; } 
             else { document.body.classList.add('break-mode'); document.getElementById('status-text').innerText = "PAUSE MÉRITÉE"; document.getElementById('btn-skip-break').style.display = 'inline-block'; document.getElementById('progress-bar').style.backgroundColor = 'var(--break-color)'; }
             document.getElementById('btn-start').style.display = 'none'; if(!isBreak) document.getElementById('btn-stop').style.display = 'inline-block';
@@ -338,13 +286,9 @@
             if (timeLeft >= 0) {
                 const m = Math.floor(timeLeft / 60); const s = timeLeft % 60; const timeString = `${m}:${s < 10 ? '0' : ''}${s}`;
                 document.getElementById('timer').innerText = timeString;
-                
                 const percent = ((totalTime - timeLeft) / totalTime) * 100;
-                const totalBlocks = 15;
-                const filledBlocks = Math.round((percent / 100) * totalBlocks);
-                const visualBar = '▬'.repeat(filledBlocks) + '─'.repeat(totalBlocks - filledBlocks);
+                const totalBlocks = 15; const filledBlocks = Math.round((percent / 100) * totalBlocks); const visualBar = '▬'.repeat(filledBlocks) + '─'.repeat(totalBlocks - filledBlocks);
                 document.title = `[${visualBar}] ${isBreak ? 'Pause' : 'Focus'}`; 
-
                 document.getElementById('progress-bar').style.width = `${percent}%`;
             } else { clearInterval(timerInterval); finishCycle(); }
         }
@@ -353,13 +297,8 @@
             const audio = document.getElementById('alarm-sound'); if(audio) audio.play().catch(() => {});
             document.title = "🔔 Terminé !";
             if (!isBreak) {
-                const task = tasks.find(t => t.id === activeTaskId); 
-                task.completedPomodoros++;
-                
-                // DATA ENREGISTREMENT POUR STATS
-                if(!task.sessionTimestamps) task.sessionTimestamps = [];
-                task.sessionTimestamps.push(new Date().toISOString());
-
+                const task = tasks.find(t => t.id === activeTaskId); task.completedPomodoros++; 
+                if(!task.sessionTimestamps) task.sessionTimestamps = []; task.sessionTimestamps.push(new Date().toISOString());
                 save(); renderTasks();
                 isBreak = true; document.body.classList.remove('zen-mode'); document.getElementById('btn-stop').style.display = 'none';
                 setTimeout(() => startTimer(), 1500);
@@ -369,11 +308,7 @@
         }
         function stopTimer() { clearInterval(timerInterval); document.body.classList.remove('zen-mode'); resetUI(); document.title = "Focus Quest"; }
         function skipBreak() { clearInterval(timerInterval); finishCycle(); }
-        
-        function resetUI() { 
-            document.getElementById('timer').innerText = `${settings.work}:00`; 
-            document.getElementById('progress-bar').style.width = "0%"; document.getElementById('btn-start').style.display = 'inline-block'; document.getElementById('btn-stop').style.display = 'none'; document.getElementById('btn-skip-break').style.display = 'none'; document.getElementById('progress-bar').style.backgroundColor = 'var(--text-color)';
-        }
+        function resetUI() { document.getElementById('timer').innerText = `${settings.work}:00`; document.getElementById('progress-bar').style.width = "0%"; document.getElementById('btn-start').style.display = 'inline-block'; document.getElementById('btn-stop').style.display = 'none'; document.getElementById('btn-skip-break').style.display = 'none'; document.getElementById('progress-bar').style.backgroundColor = 'var(--text-color)'; }
         init();
     </script>
 </body>
