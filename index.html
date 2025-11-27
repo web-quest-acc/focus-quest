@@ -36,7 +36,7 @@
         .stat-card { background: #2d3436; border-radius: 12px; padding: 15px; text-align: left; position: relative; overflow: hidden; }
         .stat-card.full-width { grid-column: span 2; }
         .stat-label { font-size: 0.75rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; font-weight: bold; }
-        .stat-value { font-size: 1.8rem; font-weight: 800; color: white; }
+        .stat-value { font-size: 1.6rem; font-weight: 800; color: white; }
         .stat-sub { font-size: 0.8rem; color: #666; margin-top: 2px; }
 
         /* XP & LEVEL */
@@ -57,7 +57,6 @@
 
         /* TOP LIST */
         .top-list-item { display: flex; align-items: center; margin-bottom: 8px; font-size: 0.9rem; }
-        /* .top-emoji supprimé ici */
         .top-info { flex-grow: 1; }
         .top-name { display: block; color: white; font-weight: 500; }
         .top-bar-bg { background: #444; height: 4px; width: 100%; border-radius: 2px; margin-top: 4px; overflow: hidden; }
@@ -145,7 +144,14 @@
                     <span class="stat-label">🔥 Série</span><span class="stat-value" id="stat-streak">0</span><div class="stat-sub">Jours de suite</div>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-label">⚡ Moment Fort</span><span class="stat-value" id="stat-peak">--</span><div class="stat-sub">Créneau 2h</div>
+                    <span class="stat-label">⏱️ Total</span><span class="stat-value" id="stat-hours">0h</span><div class="stat-sub">Temps productif</div>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-label">⚡ Moment Fort</span><span class="stat-value" id="stat-peak">--</span><div class="stat-sub">Meilleur créneau</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">📉 Moment Creux</span><span class="stat-value" id="stat-low">--</span><div class="stat-sub">Idéal pour les tâches faciles</div>
                 </div>
                 
                 <div class="stat-card full-width">
@@ -191,7 +197,7 @@
 
     <script>
         let settings = { work: 25, break: 5 };
-        const CATEGORIES = { 'deep': { color: '#ff7675', label: 'Deep Work' }, 'admin': { color: '#74b9ff', label: 'Routine' }, 'learn': { color: '#ffeaa7', label: 'Étude' }, 'create': { color: '#a29bfe', label: 'Créatif' } };
+        const CATEGORIES = { 'deep': { color: '#ff7675', label: 'Deep Work', emoji: '👹' }, 'admin': { color: '#74b9ff', label: 'Routine', emoji: '🤖' }, 'learn': { color: '#ffeaa7', label: 'Étude', emoji: '🧠' }, 'create': { color: '#a29bfe', label: 'Créatif', emoji: '🧙‍♂️' } };
         let tasks = []; let activeTaskId = null; let selectedCategory = 'deep'; let timerInterval = null; let endTime = 0; let isBreak = false; let totalTime = settings.work * 60;
 
         function init() {
@@ -209,13 +215,10 @@
         
         function openStats() { calculateStats(); document.getElementById('stats-modal').style.display = 'flex'; }
 
-        /* --- STATS ENGINE V15 (No Emojis on Top List) --- */
+        /* --- STATS ENGINE V16 --- */
         function calculateStats() {
             let totalPomodoros = 0; let dailyCounts = {}; let taskCounts = {};
-            let slots = {
-                'Tôt 🌑': 0, '08h-10h ☕': 0, '10h-12h 🔥': 0, '12h-14h 🍽️': 0,
-                '14h-16h 🚀': 0, '16h-18h 🎯': 0, 'Soir 🌙': 0
-            };
+            let slots = { 'Tôt 🌑': 0, '08h-10h ☕': 0, '10h-12h 🔥': 0, '12h-14h 🍽️': 0, '14h-16h 🚀': 0, '16h-18h 🎯': 0, 'Soir 🌙': 0 };
             
             tasks.forEach(t => {
                 totalPomodoros += t.completedPomodoros;
@@ -226,7 +229,6 @@
                         const dateKey = d.toISOString().split('T')[0];
                         dailyCounts[dateKey] = (dailyCounts[dateKey] || 0) + 1;
                         
-                        // 2-hour Blocks logic
                         const h = d.getHours();
                         if (h < 8) slots['Tôt 🌑']++;
                         else if (h < 10) slots['08h-10h ☕']++;
@@ -280,15 +282,22 @@
                 else { if (isWeekend) { checkDate.setDate(checkDate.getDate() - 1); } else { if (key === new Date().toISOString().split('T')[0]) { checkDate.setDate(checkDate.getDate() - 1); } else { break; } } }
             }
             document.getElementById('stat-streak').innerText = streak;
+            document.getElementById('stat-hours').innerText = `${Math.floor((totalPomodoros * settings.work) / 60)}h`;
 
-            // PEAK TIME
+            // PEAK & LOW TIME
             let maxVal = -1; let bestSlot = "--";
+            let minVal = Infinity; let worstSlot = "--";
+
             for (const [key, val] of Object.entries(slots)) {
                 if(val > maxVal && val > 0) { maxVal = val; bestSlot = key; }
+                if(val > 0 && val < minVal) { minVal = val; worstSlot = key; }
             }
-            document.getElementById('stat-peak').innerText = bestSlot;
+            if(minVal === Infinity) worstSlot = "--";
 
-            // TOP 3 (SANS EMOJIS)
+            document.getElementById('stat-peak').innerText = bestSlot;
+            document.getElementById('stat-low').innerText = worstSlot;
+
+            // TOP 3
             const sortedTasks = Object.entries(taskCounts).sort((a, b) => b[1].count - a[1].count).slice(0, 3);
             const topList = document.getElementById('top-tasks-list'); topList.innerHTML = '';
             if(sortedTasks.length === 0) topList.innerHTML = '<div style="color:#666; font-size:0.8rem;">Aucune donnée</div>';
@@ -296,7 +305,6 @@
                 const max = sortedTasks[0][1].count; const pct = (data.count / max) * 100;
                 const catInfo = CATEGORIES[data.cat];
                 const item = document.createElement('div'); item.className = 'top-list-item';
-                // HTML MODIFIÉ ICI (Plus d'icône devant)
                 item.innerHTML = `<div class="top-info"><span class="top-name">${name}</span><div class="top-bar-bg"><div class="top-bar-fill" style="width:${pct}%; background-color:${catInfo.color}"></div></div></div><div class="top-count">${data.count}</div>`;
                 topList.appendChild(item);
             });
