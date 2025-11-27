@@ -57,7 +57,7 @@
 
         /* TOP LIST */
         .top-list-item { display: flex; align-items: center; margin-bottom: 8px; font-size: 0.9rem; }
-        .top-emoji { margin-right: 10px; font-size: 1.2rem; }
+        /* .top-emoji supprimé ici */
         .top-info { flex-grow: 1; }
         .top-name { display: block; color: white; font-weight: 500; }
         .top-bar-bg { background: #444; height: 4px; width: 100%; border-radius: 2px; margin-top: 4px; overflow: hidden; }
@@ -191,7 +191,7 @@
 
     <script>
         let settings = { work: 25, break: 5 };
-        const CATEGORIES = { 'deep': { color: '#ff7675', label: 'Deep Work', emoji: '👹' }, 'admin': { color: '#74b9ff', label: 'Routine', emoji: '🤖' }, 'learn': { color: '#ffeaa7', label: 'Étude', emoji: '🧠' }, 'create': { color: '#a29bfe', label: 'Créatif', emoji: '🧙‍♂️' } };
+        const CATEGORIES = { 'deep': { color: '#ff7675', label: 'Deep Work' }, 'admin': { color: '#74b9ff', label: 'Routine' }, 'learn': { color: '#ffeaa7', label: 'Étude' }, 'create': { color: '#a29bfe', label: 'Créatif' } };
         let tasks = []; let activeTaskId = null; let selectedCategory = 'deep'; let timerInterval = null; let endTime = 0; let isBreak = false; let totalTime = settings.work * 60;
 
         function init() {
@@ -209,10 +209,9 @@
         
         function openStats() { calculateStats(); document.getElementById('stats-modal').style.display = 'flex'; }
 
-        /* --- STATS ENGINE V14 --- */
+        /* --- STATS ENGINE V15 (No Emojis on Top List) --- */
         function calculateStats() {
             let totalPomodoros = 0; let dailyCounts = {}; let taskCounts = {};
-            // Initialisation des tranches de 2h
             let slots = {
                 'Tôt 🌑': 0, '08h-10h ☕': 0, '10h-12h 🔥': 0, '12h-14h 🍽️': 0,
                 '14h-16h 🚀': 0, '16h-18h 🎯': 0, 'Soir 🌙': 0
@@ -227,7 +226,7 @@
                         const dateKey = d.toISOString().split('T')[0];
                         dailyCounts[dateKey] = (dailyCounts[dateKey] || 0) + 1;
                         
-                        // NEW: 2-hour Blocks logic
+                        // 2-hour Blocks logic
                         const h = d.getHours();
                         if (h < 8) slots['Tôt 🌑']++;
                         else if (h < 10) slots['08h-10h ☕']++;
@@ -250,7 +249,7 @@
             document.getElementById('xp-text').innerText = `${Math.floor(totalXP - prevLevelXP)} / ${nextLevelXP - prevLevelXP} XP`;
             document.getElementById('xp-bar').style.width = `${xpPercent}%`;
 
-            // CHART (SMART SCALE)
+            // CHART
             const chart = document.getElementById('weekly-chart'); chart.innerHTML = '';
             const days = ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'];
             const today = new Date();
@@ -282,14 +281,14 @@
             }
             document.getElementById('stat-streak').innerText = streak;
 
-            // PEAK TIME (GRANULAR)
+            // PEAK TIME
             let maxVal = -1; let bestSlot = "--";
             for (const [key, val] of Object.entries(slots)) {
                 if(val > maxVal && val > 0) { maxVal = val; bestSlot = key; }
             }
             document.getElementById('stat-peak').innerText = bestSlot;
 
-            // TOP 3
+            // TOP 3 (SANS EMOJIS)
             const sortedTasks = Object.entries(taskCounts).sort((a, b) => b[1].count - a[1].count).slice(0, 3);
             const topList = document.getElementById('top-tasks-list'); topList.innerHTML = '';
             if(sortedTasks.length === 0) topList.innerHTML = '<div style="color:#666; font-size:0.8rem;">Aucune donnée</div>';
@@ -297,7 +296,8 @@
                 const max = sortedTasks[0][1].count; const pct = (data.count / max) * 100;
                 const catInfo = CATEGORIES[data.cat];
                 const item = document.createElement('div'); item.className = 'top-list-item';
-                item.innerHTML = `<div class="top-emoji">${catInfo.emoji || '🔹'}</div><div class="top-info"><span class="top-name">${name}</span><div class="top-bar-bg"><div class="top-bar-fill" style="width:${pct}%; background-color:${catInfo.color}"></div></div></div><div class="top-count">${data.count}</div>`;
+                // HTML MODIFIÉ ICI (Plus d'icône devant)
+                item.innerHTML = `<div class="top-info"><span class="top-name">${name}</span><div class="top-bar-bg"><div class="top-bar-fill" style="width:${pct}%; background-color:${catInfo.color}"></div></div></div><div class="top-count">${data.count}</div>`;
                 topList.appendChild(item);
             });
         }
