@@ -36,7 +36,7 @@
         .stat-card { background: #2d3436; border-radius: 12px; padding: 15px; text-align: left; position: relative; overflow: hidden; }
         .stat-card.full-width { grid-column: span 2; }
         .stat-label { font-size: 0.75rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; font-weight: bold; }
-        .stat-value { font-size: 1.6rem; font-weight: 800; color: white; }
+        .stat-value { font-size: 1.8rem; font-weight: 800; color: white; }
         .stat-sub { font-size: 0.8rem; color: #666; margin-top: 2px; }
 
         /* XP & LEVEL */
@@ -44,13 +44,35 @@
         .xp-container { background: #111; height: 8px; border-radius: 4px; margin-top: 10px; overflow: hidden; position: relative; }
         .xp-bar { height: 100%; background: linear-gradient(90deg, #f1c40f, #e67e22); width: 0%; transition: width 1s ease; }
         
-        /* WEEKLY CHART */
-        .chart-frame { display: flex; align-items: flex-end; justify-content: space-between; height: 120px; padding-top: 20px; gap: 5px; }
-        .bar-group { display: flex; flex-direction: column; align-items: center; width: 100%; }
-        .bar-visual { width: 100%; background: #444; border-radius: 4px; transition: height 0.5s; min-height: 4px; position: relative; }
+        /* WEEKLY CHART (CORRECTION CSS) */
+        .chart-frame { 
+            display: flex; 
+            align-items: stretch; /* Les groupes prennent toute la hauteur */
+            justify-content: space-between; 
+            height: 150px; /* Un peu plus haut */
+            padding-top: 20px; 
+            gap: 5px; 
+        }
+        .bar-group { 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-end; /* Colle le contenu en bas */
+            align-items: center; 
+            width: 100%; 
+            height: 100%; /* Important */
+        }
+        .bar-visual { 
+            width: 100%; 
+            background: #444; 
+            border-radius: 4px; 
+            transition: height 0.5s; 
+            min-height: 4px; 
+            position: relative; 
+        }
         .bar-visual:hover { background: var(--success-color); }
         .bar-visual.today { border: 1px solid white; }
         .bar-visual.god-mode { background: var(--god-mode); box-shadow: 0 0 10px var(--god-mode); }
+        
         .bar-day { font-size: 0.7rem; color: #888; margin-top: 8px; }
         .bar-val { font-size: 0.7rem; color: white; margin-bottom: 5px; opacity: 0; transition: opacity 0.2s; }
         .bar-group:hover .bar-val { opacity: 1; }
