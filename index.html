@@ -24,7 +24,7 @@
         .icon-btn.tomato-btn:hover { background: #ff7675; color: white; }
         .icon-svg { width: 20px; height: 20px; fill: currentColor; }
 
-        /* TOAST NOTIFICATION (FLUIDITÉ) */
+        /* TOAST NOTIFICATION */
         .toast {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             background: #333; color: white; padding: 10px 20px; border-radius: 30px;
@@ -38,13 +38,19 @@
         .modal-box { background: #222; padding: 30px; border-radius: 20px; width: 500px; max-width: 95%; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid #444; max-height: 90vh; overflow-y: auto; }
         .modal-title { margin-top: 0; color: white; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px; font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; }
         
-        /* ARCHIVES */
-        .archive-item { background: #333; padding: 10px; border-radius: 5px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; text-align: left; }
-        .archive-title { font-weight: bold; color: #ccc; }
-        .archive-actions button { background: none; border: 1px solid #555; color: #888; cursor: pointer; padding: 2px 8px; border-radius: 4px; margin-left: 5px; font-size: 0.8rem; }
-        .archive-actions button:hover { border-color: white; color: white; }
-        .btn-restore { color: var(--success-color) !important; border-color: var(--success-color) !important; }
-        .btn-nuke { background: var(--danger-color); color: white; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        /* ARCHIVES STYLE EMAIL */
+        .archive-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #444; }
+        .archive-controls { display: flex; gap: 10px; }
+        .btn-bulk { padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem; font-weight: bold; }
+        .btn-bulk-restore { background: #333; color: var(--success-color); border: 1px solid var(--success-color); }
+        .btn-bulk-delete { background: #333; color: var(--danger-color); border: 1px solid var(--danger-color); }
+        .btn-bulk:hover { background: #444; }
+
+        .archive-item { background: #333; padding: 10px; border-radius: 5px; margin-bottom: 5px; display: flex; align-items: center; text-align: left; transition: background 0.2s; }
+        .archive-item:hover { background: #3a3a3a; }
+        .archive-checkbox { margin-right: 15px; transform: scale(1.2); cursor: pointer; }
+        .archive-title { font-weight: 500; color: #ccc; flex-grow: 1; }
+        .archive-date { font-size: 0.8rem; color: #666; }
 
         /* HELP */
         .help-step { text-align: left; margin-bottom: 15px; display: flex; gap: 10px; }
@@ -68,7 +74,6 @@
         .xp-container { background: #111; height: 8px; border-radius: 4px; margin-top: 10px; overflow: hidden; position: relative; }
         .xp-bar { height: 100%; background: linear-gradient(90deg, #f1c40f, #e67e22); width: 0%; transition: width 1s ease; }
         
-        /* --- FIX BAR PLOT CSS --- */
         .chart-frame { display: flex; align-items: flex-end; justify-content: space-between; height: 140px; padding-top: 20px; gap: 5px; }
         .bar-group { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 100%; height: 100%; }
         .bar-visual { width: 100%; background: #444; border-radius: 4px; transition: height 0.5s; min-height: 4px; position: relative; }
@@ -90,33 +95,24 @@
         .board-container { width: 100%; margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding-bottom: 50px; }
         .post-it { 
             background-color: var(--postit-color); color: #333; width: 220px; 
-            min-height: 100px; /* Réduit pour supporter le mode minimisé */
-            padding: 15px; 
+            min-height: 100px; padding: 15px; 
             box-shadow: 5px 5px 15px rgba(0,0,0,0.3); 
-            font-family: 'Kalam', cursive; font-size: 1rem; /* Police un peu plus petite */
+            font-family: 'Kalam', cursive; font-size: 1rem; 
             position: relative; transform: rotate(-1deg); 
             transition: all 0.2s; display: flex; flex-direction: column; 
         }
         .post-it:hover { transform: scale(1.02) rotate(0deg); z-index: 10; box-shadow: 8px 8px 20px rgba(0,0,0,0.4); }
         .post-it.minimized { height: auto; min-height: 0; padding-bottom: 10px; }
-        
         .post-it-title { font-weight: bold; border-bottom: 1px dashed #999; padding-bottom: 5px; margin-bottom: 5px; font-size: 1.1rem; outline: none; background: transparent; border-top: none; border-left: none; border-right: none; width: 100%; }
-        
-        /* Contenu caché quand minimisé */
-        .post-it.minimized .post-it-lines, 
-        .post-it.minimized .pi-add-btn { display: none; }
-
+        .post-it.minimized .post-it-lines, .post-it.minimized .pi-add-btn { display: none; }
         .post-it-lines { flex-grow: 1; margin-bottom: 5px; }
         .pi-line { display: flex; align-items: center; margin-bottom: 3px; border-bottom: 1px dotted rgba(0,0,0,0.15); padding-bottom: 2px; }
         .pi-line.done { text-decoration: line-through; opacity: 0.5; }
         .pi-text { flex-grow: 1; cursor: text; outline: none; background: transparent; border: none; font-family: inherit; font-size: 0.95rem; color: #444; }
-        
         .pi-btn { background: none; border: none; cursor: pointer; color: #555; font-size: 0.8rem; padding: 0 4px; opacity: 0.4; transition: opacity 0.2s; }
         .pi-btn:hover { opacity: 1; color: black; font-weight: bold; }
-        
         .pi-add-btn { margin-top: 5px; background: rgba(0,0,0,0.05); border: none; width: 100%; cursor: pointer; border-radius: 5px; font-family: 'Kalam', cursive; padding: 3px; font-size: 0.9rem; }
         .pi-add-btn:hover { background: rgba(0,0,0,0.1); }
-        
         .pi-tools { position: absolute; top: 5px; right: 5px; display: flex; gap: 5px; opacity: 0; transition: opacity 0.2s; }
         .post-it:hover .pi-tools { opacity: 1; }
         .tool-btn { background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0; color: #555; }
@@ -144,14 +140,19 @@
         .add-btn { background: #636e72; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 1rem; }
         .add-btn:hover { background: #b2bec3; color: #2d3436; }
         .task-list { flex-grow: 1; overflow-y: auto; }
-        .task-item { background: #3a3a3a; padding: 12px 15px; margin-bottom: 8px; border-radius: 8px; cursor: pointer; border-left: 4px solid transparent; transition: all 0.2s; position: relative; }
+        .task-item { background: #3a3a3a; padding: 12px 15px 12px 35px; /* Padding à gauche pour la croix */ margin-bottom: 8px; border-radius: 8px; cursor: pointer; border-left: 4px solid transparent; transition: all 0.2s; position: relative; }
         .task-item.active { background: #2f2f35; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1); }
         .task-item.completed { opacity: 0.4; filter: grayscale(100%); }
         .task-top { display: flex; justify-content: space-between; align-items: center; }
-        .task-title { font-weight: 500; margin-right: 10px; }
-        /* Nouveau bouton suppression tâche jour */
-        .btn-del-task { background: none; border: none; color: #666; font-size: 1.2rem; cursor: pointer; line-height: 1; margin-left: 5px; display: none; }
-        .task-item:hover .btn-del-task { display: inline-block; }
+        .task-title { font-weight: 500; }
+        
+        /* Croix suppression tâche (GAUCHE - HAUT) */
+        .btn-del-task { 
+            position: absolute; left: 5px; top: 5px; /* Top Left fixed */
+            background: none; border: none; color: #666; font-size: 1rem; 
+            cursor: pointer; line-height: 1; display: none; z-index: 5;
+        }
+        .task-item:hover .btn-del-task { display: block; }
         .btn-del-task:hover { color: var(--danger-color); }
 
         .pomo-dots { display: flex; gap: 4px; margin-top: 5px; }
@@ -202,8 +203,16 @@
         <div class="modal-box">
             <button class="btn-close" onclick="closeModal('archives-modal')">×</button>
             <h2 class="modal-title">🗄️ Archives</h2>
+            
+            <div class="archive-header">
+                <label style="cursor:pointer; color:#aaa;"><input type="checkbox" id="select-all-archives" onchange="toggleAllArchives(this)"> Tout</label>
+                <div class="archive-controls">
+                    <button class="btn-bulk btn-bulk-restore" onclick="restoreSelectedArchives()">↺ Restaurer</button>
+                    <button class="btn-bulk btn-bulk-delete" onclick="deleteSelectedArchives()">🗑️ Supprimer</button>
+                </div>
+            </div>
+
             <div id="archives-list" style="max-height: 400px; overflow-y: auto; margin-bottom: 20px;"></div>
-            <button class="btn-nuke" onclick="nukeArchives()">🔥 Tout supprimer</button>
             <p style="font-size: 0.8rem; color: #666; margin-top:10px;">Les projets restaurés réapparaissent sur le tableau.</p>
         </div>
     </div>
@@ -275,24 +284,57 @@
         function saveSettings() { const w = parseInt(document.getElementById('setting-work').value); const b = parseInt(document.getElementById('setting-break').value); if(w > 0 && b > 0) { settings.work = w; settings.break = b; localStorage.setItem('focusSettings', JSON.stringify(settings)); closeModal('settings-modal'); if(!timerInterval) resetUI(); } }
         function openStats() { calculateStats(); document.getElementById('stats-modal').style.display = 'flex'; }
 
-        /* --- ARCHIVES LOGIC --- */
+        /* --- ARCHIVES LOGIC (STYLE EMAIL) --- */
         function openArchives() {
             const container = document.getElementById('archives-list'); container.innerHTML = '';
+            document.getElementById('select-all-archives').checked = false; // Reset checkbox
             if(archivedProjects.length === 0) { container.innerHTML = '<div style="color:#666; text-align:center;">Aucune archive.</div>'; } 
             else {
                 archivedProjects.forEach(proj => {
                     const div = document.createElement('div'); div.className = 'archive-item';
-                    div.innerHTML = `<span class="archive-title">${proj.title}</span><div class="archive-actions"><button class="btn-restore" onclick="restoreProject(${proj.id})">Restaurer ↺</button><button onclick="deleteForever(${proj.id})">Suppr. X</button></div>`;
+                    // Checkbox pour la sélection
+                    div.innerHTML = `
+                        <input type="checkbox" class="archive-checkbox" value="${proj.id}">
+                        <span class="archive-title">${proj.title}</span>
+                    `;
                     container.appendChild(div);
                 });
             }
             document.getElementById('archives-modal').style.display = 'flex';
         }
-        function restoreProject(id) { const proj = archivedProjects.find(p => p.id === id); if(proj) { projects.push(proj); archivedProjects = archivedProjects.filter(p => p.id !== id); saveProjects(); saveArchives(); renderBoard(); openArchives(); showToast("Projet restauré !"); } }
-        function deleteForever(id) { if(confirm("Supprimer définitivement ce projet ?")) { archivedProjects = archivedProjects.filter(p => p.id !== id); saveArchives(); openArchives(); showToast("Projet supprimé."); } }
-        function nukeArchives() { if(archivedProjects.length > 0 && confirm("Voulez-vous VRAIMENT tout supprimer ? C'est irréversible.")) { archivedProjects = []; saveArchives(); openArchives(); showToast("Archives vidées."); } }
 
-        /* --- PROJECTS LOGIC (V20) --- */
+        function toggleAllArchives(source) {
+            const checkboxes = document.querySelectorAll('.archive-checkbox');
+            checkboxes.forEach(cb => cb.checked = source.checked);
+        }
+
+        function getSelectedArchiveIds() {
+            const checkboxes = document.querySelectorAll('.archive-checkbox:checked');
+            return Array.from(checkboxes).map(cb => parseInt(cb.value));
+        }
+
+        function restoreSelectedArchives() {
+            const ids = getSelectedArchiveIds();
+            if(ids.length === 0) return;
+            
+            ids.forEach(id => {
+                const proj = archivedProjects.find(p => p.id === id);
+                if(proj) { projects.push(proj); }
+            });
+            
+            archivedProjects = archivedProjects.filter(p => !ids.includes(p.id));
+            saveProjects(); saveArchives(); renderBoard(); openArchives(); showToast(`${ids.length} projet(s) restauré(s).`);
+        }
+
+        function deleteSelectedArchives() {
+            const ids = getSelectedArchiveIds();
+            if(ids.length === 0) return;
+            
+            archivedProjects = archivedProjects.filter(p => !ids.includes(p.id));
+            saveArchives(); openArchives(); showToast(`${ids.length} projet(s) supprimé(s).`);
+        }
+
+        /* --- PROJECTS LOGIC --- */
         function createNewProject() {
             const newProj = { id: Date.now(), title: 'Nouveau Projet', lines: [], minimized: false };
             projects.push(newProj); saveProjects(); renderBoard();
@@ -306,7 +348,6 @@
                 proj.lines.forEach((line, idx) => {
                     linesHtml += `<div class="pi-line ${line.done ? 'done' : ''}"><button class="pi-btn" title="Terminé" onclick="toggleLine(${proj.id}, ${idx})">✓</button><input type="text" class="pi-text" value="${line.text}" onchange="updateLineText(${proj.id}, ${idx}, this.value)"><button class="pi-btn" title="Envoyer vers Aujourd'hui" onclick="sendToDaily(${proj.id}, ${idx})">➜</button></div>`;
                 });
-                // Nouvelle icone Archive (dossier) et bouton Minimiser (_)
                 el.innerHTML = `
                     <div class="pi-tools">
                         <button class="tool-btn" onclick="toggleMinimize(${proj.id})" title="${proj.minimized ? 'Agrandir' : 'Réduire'}">${proj.minimized ? '◻' : '_'}</button>
@@ -332,12 +373,13 @@
                 const text = p.lines[idx].text; if(!text.trim()) return;
                 const newTask = { id: Date.now(), title: text, cat: 'deep', estimated: 1, completedPomodoros: 0, isDone: false, date: new Date().toISOString().split('T')[0], sessionTimestamps: [] };
                 tasks.push(newTask); saveProjects(); renderBoard(); save(); renderTasks(); 
-                showToast("Tâche transférée !"); // FLUIDE
+                showToast("Tâche transférée !");
             }
         }
+        
         function archiveProject(id) {
             const proj = projects.find(p => p.id === id);
-            if(proj && confirm("Archiver ce projet ?")) {
+            if(proj) {
                 archivedProjects.push(proj); projects = projects.filter(p => p.id !== id);
                 saveProjects(); saveArchives(); renderBoard(); showToast("Projet archivé.");
             }
@@ -351,7 +393,6 @@
             tasks.forEach(t => { totalPomodoros += t.completedPomodoros; if(t.completedPomodoros > 0) { taskCounts[t.title] = { count: t.completedPomodoros, cat: t.cat }; } if(t.sessionTimestamps) { t.sessionTimestamps.forEach(ts => { const d = new Date(ts); const dateKey = d.toISOString().split('T')[0]; dailyCounts[dateKey] = (dailyCounts[dateKey] || 0) + 1; const h = d.getHours(); if (h < 8) slots['Tôt 🌑']++; else if (h < 10) slots['08h-10h ☕']++; else if (h < 12) slots['10h-12h 🔥']++; else if (h < 14) slots['12h-14h 🍽️']++; else if (h < 16) slots['14h-16h 🚀']++; else if (h < 18) slots['16h-18h 🎯']++; else slots['Soir 🌙']++; }); } });
             const totalXP = totalPomodoros * 100; const currentLevel = Math.floor(Math.sqrt(totalXP / 100)) + 1; const nextLevelXP = Math.pow(currentLevel, 2) * 100; const prevLevelXP = Math.pow(currentLevel - 1, 2) * 100; const xpPercent = Math.min(100, Math.max(0, ((totalXP - prevLevelXP) / (nextLevelXP - prevLevelXP)) * 100));
             document.getElementById('level-badge').innerText = `Lvl ${currentLevel}`; document.getElementById('xp-text').innerText = `${Math.floor(totalXP - prevLevelXP)} / ${nextLevelXP - prevLevelXP} XP`; document.getElementById('xp-bar').style.width = `${xpPercent}%`;
-            // Chart rendering fixed
             const chart = document.getElementById('weekly-chart'); chart.innerHTML = ''; const days = ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa']; const today = new Date(); let last7Days = []; let maxInWeek = 0; for(let i=6; i>=0; i--) { const d = new Date(); d.setDate(today.getDate() - i); const key = d.toISOString().split('T')[0]; const count = dailyCounts[key] || 0; if(count > maxInWeek) maxInWeek = count; last7Days.push({ day: days[d.getDay()], count: count, isToday: i===0 }); } const scaleRef = Math.max(maxInWeek, 4); last7Days.forEach(d => { let hPct = (d.count / scaleRef) * 100; let barClass = d.isToday ? 'today' : ''; if (d.count >= 8) { barClass += ' god-mode'; } const group = document.createElement('div'); group.className = 'bar-group'; group.innerHTML = `<div class="bar-val">${d.count}</div><div class="bar-visual ${barClass}" style="height: ${Math.max(4, hPct)}%"></div><div class="bar-day">${d.day}</div>`; chart.appendChild(group); });
             let streak = 0; let checkDate = new Date(); while(true) { const key = checkDate.toISOString().split('T')[0]; const isWeekend = (checkDate.getDay() === 0 || checkDate.getDay() === 6); if(dailyCounts[key] && dailyCounts[key] > 0) { streak++; checkDate.setDate(checkDate.getDate() - 1); } else { if (isWeekend) { checkDate.setDate(checkDate.getDate() - 1); } else { if (key === new Date().toISOString().split('T')[0]) { checkDate.setDate(checkDate.getDate() - 1); } else { break; } } } } document.getElementById('stat-streak').innerText = streak; document.getElementById('stat-hours').innerText = `${Math.floor((totalPomodoros * settings.work) / 60)}h`;
             let maxVal = -1; let bestSlot = "--"; let minVal = Infinity; let worstSlot = "--"; for (const [key, val] of Object.entries(slots)) { if(val > maxVal && val > 0) { maxVal = val; bestSlot = key; } if(val > 0 && val < minVal) { minVal = val; worstSlot = key; } } if(minVal === Infinity) worstSlot = "--"; document.getElementById('stat-peak').innerText = bestSlot; document.getElementById('stat-low').innerText = worstSlot;
@@ -359,13 +400,19 @@
         }
         function selectCat(cat) { selectedCategory = cat; document.querySelectorAll('.cat-option').forEach(el => el.classList.remove('selected')); document.querySelector(`.cat-option[data-cat="${cat}"]`).classList.add('selected'); }
         function addTask() { const title = document.getElementById('new-task-title').value; const est = document.getElementById('new-task-est').value; if(!title.trim()) return; const newTask = { id: Date.now(), title: title, cat: selectedCategory, estimated: parseInt(est), completedPomodoros: 0, isDone: false, date: new Date().toISOString().split('T')[0], sessionTimestamps: [] }; tasks.push(newTask); save(); renderTasks(); if(tasks.length === 1) selectTask(newTask.id); document.getElementById('new-task-title').value = ''; }
-        function deleteTask(id) { if(confirm("Supprimer cette tâche ?")) { tasks = tasks.filter(t => t.id !== id); if(activeTaskId === id) { activeTaskId = null; document.getElementById('current-task-display').innerText = "..."; } save(); renderTasks(); } }
         
-        function renderTasks() { const list = document.getElementById('task-list'); list.innerHTML = ''; const today = new Date().toISOString().split('T')[0]; const visibleTasks = tasks.filter(t => !t.isDone || (t.finishedDate === today) || (!t.finishedDate && t.date === today)); visibleTasks.forEach(task => { const catData = CATEGORIES[task.cat]; const totalDots = Math.max(task.estimated, task.completedPomodoros); let dotsHtml = ''; for(let i=0; i<totalDots; i++) { let style = ''; let classes = 'dot'; if(i < task.completedPomodoros) { classes += ' filled'; if(i >= task.estimated) classes += ' excess'; style = `background-color: ${catData.color}; border-color: ${catData.color}`; } else { style = `border-color: ${catData.color}`; } dotsHtml += `<div class="${classes}" style="${style}"></div>`; } const item = document.createElement('div'); item.className = `task-item ${activeTaskId === task.id ? 'active' : ''} ${task.isDone ? 'completed' : ''}`; item.style.borderLeftColor = catData.color; item.onclick = (e) => { if(e.target.classList.contains('check-btn') || e.target.classList.contains('btn-del-task')) return; selectTask(task.id); }; item.innerHTML = `<div class="task-top"><div style="display:flex;align-items:center;"><span class="task-title">${task.title}</span></div><div><button class="check-btn" onclick="toggleDone(${task.id})">✓</button><button class="btn-del-task" onclick="deleteTask(${task.id})">×</button></div></div><div class="pomo-dots">${dotsHtml}</div>`; list.appendChild(item); }); }
+        function deleteTask(id) { 
+            tasks = tasks.filter(t => t.id !== id); 
+            if(activeTaskId === id) { activeTaskId = null; document.getElementById('current-task-display').innerText = "..."; } 
+            save(); renderTasks(); 
+            showToast("Tâche supprimée."); 
+        }
+        
+        function renderTasks() { const list = document.getElementById('task-list'); list.innerHTML = ''; const today = new Date().toISOString().split('T')[0]; const visibleTasks = tasks.filter(t => !t.isDone || (t.finishedDate === today) || (!t.finishedDate && t.date === today)); visibleTasks.forEach(task => { const catData = CATEGORIES[task.cat]; const totalDots = Math.max(task.estimated, task.completedPomodoros); let dotsHtml = ''; for(let i=0; i<totalDots; i++) { let style = ''; let classes = 'dot'; if(i < task.completedPomodoros) { classes += ' filled'; if(i >= task.estimated) classes += ' excess'; style = `background-color: ${catData.color}; border-color: ${catData.color}`; } else { style = `border-color: ${catData.color}`; } dotsHtml += `<div class="${classes}" style="${style}"></div>`; } const item = document.createElement('div'); item.className = `task-item ${activeTaskId === task.id ? 'active' : ''} ${task.isDone ? 'completed' : ''}`; item.style.borderLeftColor = catData.color; item.onclick = (e) => { if(e.target.classList.contains('check-btn') || e.target.classList.contains('btn-del-task')) return; selectTask(task.id); }; item.innerHTML = `<div class="task-top"><div style="display:flex;align-items:center;"><button class="btn-del-task" onclick="deleteTask(${task.id})">×</button><span class="task-title">${task.title}</span></div><div><button class="check-btn" onclick="toggleDone(${task.id})">✓</button></div></div><div class="pomo-dots">${dotsHtml}</div>`; list.appendChild(item); }); }
         function selectTask(id) { const task = tasks.find(t => t.id === id); if(!task || task.isDone) return; activeTaskId = id; document.getElementById('current-task-display').innerText = task.title; renderTasks(); }
         function toggleDone(id) { const task = tasks.find(t => t.id === id); task.isDone = !task.isDone; if(task.isDone) task.finishedDate = new Date().toISOString().split('T')[0]; else task.finishedDate = null; save(); renderTasks(); }
         function save() { localStorage.setItem('focusTasks_v5', JSON.stringify(tasks)); }
-        function startTimer() { if(!activeTaskId && !isBreak) { alert("Sélectionne une tâche !"); return; } totalTime = (isBreak ? settings.break : settings.work) * 60; endTime = Date.now() + (totalTime * 1000); if(!isBreak) { document.body.classList.add('zen-mode'); const task = tasks.find(t => t.id === activeTaskId); document.getElementById('progress-bar').style.backgroundColor = CATEGORIES[task.cat].color; } else { document.body.classList.add('break-mode'); document.getElementById('status-text').innerText = "PAUSE MÉRITÉE"; document.getElementById('btn-skip-break').style.display = 'inline-block'; document.getElementById('progress-bar').style.backgroundColor = 'var(--break-color)'; } document.getElementById('btn-start').style.display = 'none'; if(!isBreak) document.getElementById('btn-stop').style.display = 'inline-block'; clearInterval(timerInterval); updateTick(); timerInterval = setInterval(updateTick, 1000); }
+        function startTimer() { if(!activeTaskId && !isBreak) { showToast("Sélectionne une tâche !"); return; } totalTime = (isBreak ? settings.break : settings.work) * 60; endTime = Date.now() + (totalTime * 1000); if(!isBreak) { document.body.classList.add('zen-mode'); const task = tasks.find(t => t.id === activeTaskId); document.getElementById('progress-bar').style.backgroundColor = CATEGORIES[task.cat].color; } else { document.body.classList.add('break-mode'); document.getElementById('status-text').innerText = "PAUSE MÉRITÉE"; document.getElementById('btn-skip-break').style.display = 'inline-block'; document.getElementById('progress-bar').style.backgroundColor = 'var(--break-color)'; } document.getElementById('btn-start').style.display = 'none'; if(!isBreak) document.getElementById('btn-stop').style.display = 'inline-block'; clearInterval(timerInterval); updateTick(); timerInterval = setInterval(updateTick, 1000); }
         function updateTick() { const now = Date.now(); const timeLeft = Math.ceil((endTime - now) / 1000); if (timeLeft >= 0) { const m = Math.floor(timeLeft / 60); const s = timeLeft % 60; const timeString = `${m}:${s < 10 ? '0' : ''}${s}`; document.getElementById('timer').innerText = timeString; const percent = ((totalTime - timeLeft) / totalTime) * 100; const totalBlocks = 15; const filledBlocks = Math.round((percent / 100) * totalBlocks); const visualBar = '▬'.repeat(filledBlocks) + '─'.repeat(totalBlocks - filledBlocks); document.title = `[${visualBar}] ${isBreak ? 'Pause' : 'Focus'}`; document.getElementById('progress-bar').style.width = `${percent}%`; } else { clearInterval(timerInterval); finishCycle(); } }
         function finishCycle() { const audio = document.getElementById('alarm-sound'); if(audio) audio.play().catch(() => {}); document.title = "🔔 Terminé !"; if (!isBreak) { const task = tasks.find(t => t.id === activeTaskId); task.completedPomodoros++; if(!task.sessionTimestamps) task.sessionTimestamps = []; task.sessionTimestamps.push(new Date().toISOString()); save(); renderTasks(); isBreak = true; document.body.classList.remove('zen-mode'); document.getElementById('btn-stop').style.display = 'none'; setTimeout(() => startTimer(), 1500); } else { isBreak = false; document.body.classList.remove('break-mode'); document.getElementById('status-text').innerText = "Prêt à travailler"; document.getElementById('btn-skip-break').style.display = 'none'; resetUI(); } }
         function stopTimer() { clearInterval(timerInterval); document.body.classList.remove('zen-mode'); resetUI(); document.title = "Focus Quest"; }
