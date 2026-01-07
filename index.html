@@ -30,45 +30,41 @@
 
         /* MODALS */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 200; display: none; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
-        .modal-box { background: #222; padding: 30px; border-radius: 20px; width: 600px; max-width: 95%; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid #444; max-height: 90vh; overflow-y: auto; }
+        .modal-box { background: #222; padding: 30px; border-radius: 20px; width: 650px; max-width: 95%; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid #444; max-height: 90vh; overflow-y: auto; }
         .modal-title { margin-top: 0; color: white; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px; font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; }
         
-        /* --- TUTORIAL SPOTLIGHT SYSTEM V2 (PULSING GOLD) --- */
-        @keyframes pulse-gold {
-            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7), 0 0 0 9999px rgba(0,0,0,0.9); }
-            70% { box-shadow: 0 0 0 20px rgba(255, 215, 0, 0), 0 0 0 9999px rgba(0,0,0,0.9); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0), 0 0 0 9999px rgba(0,0,0,0.9); }
-        }
-
-        .tutorial-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 900; display: none; pointer-events: none; }
-        
+        /* TUTORIAL SYSTEM */
+        .tutorial-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 900; display: none; background: rgba(0,0,0,0.5); pointer-events: auto; }
         .tutorial-active-element { 
             position: relative; z-index: 901; 
-            /* La magie opère ici : Bordure dorée + Ombre géante noire + Animation */
-            border: 2px solid #ffd700;
-            animation: pulse-gold 2s infinite;
-            border-radius: 8px; 
-            pointer-events: none; 
-            background-color: var(--surface-color); /* Pour cacher ce qu'il y a derrière si transparent */
+            box-shadow: 0 0 0 9999px rgba(0,0,0,0.85), 0 0 25px rgba(255, 215, 0, 0.6); /* Spotlight Or */
+            border-radius: 8px; pointer-events: none; 
+            background-color: inherit; transition: box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 215, 0, 0.5);
         }
-        
-        /* Cas spécial pour les boutons ronds */
         .icon-btn.tutorial-active-element { border-radius: 50%; }
+        .tutorial-box { position: fixed; width: 320px; background: white; color: #333; padding: 20px; border-radius: 10px; z-index: 902; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: none; text-align: left; border-left: 5px solid var(--xp-color); }
+        .tuto-title { font-weight: 800; font-size: 1.1rem; margin-bottom: 10px; display: block; color: #333; text-transform: uppercase; letter-spacing: 1px; }
+        .tuto-text { font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; color: #555; }
+        .tuto-btn { background: #333; color: white; border: none; padding: 8px 20px; border-radius: 5px; cursor: pointer; float: right; font-weight: bold; transition: background 0.2s; }
+        .tuto-btn:hover { background: #000; }
+
+        /* SCIENTIFIC HELP CONTENT */
+        .help-section { text-align: left; margin-bottom: 25px; color: #ddd; line-height: 1.7; }
+        .help-section h3 { color: var(--xp-color); margin-bottom: 15px; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 0; }
+        .help-text { font-size: 0.95rem; color: #ccc; margin-bottom: 15px; text-align: justify; }
         
-        .tutorial-box { position: fixed; width: 320px; background: white; color: #333; padding: 20px; border-radius: 10px; z-index: 902; box-shadow: 0 0 50px rgba(255, 215, 0, 0.3); display: none; text-align: left; border: 2px solid #ffd700; }
-        .tuto-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; display: block; color: #d35400; text-transform: uppercase; letter-spacing: 1px; }
-        .tuto-text { font-size: 1rem; line-height: 1.5; margin-bottom: 20px; color: #444; }
-        .tuto-btn { background: #333; color: white; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; float: right; font-weight: bold; transition: transform 0.2s; }
-        .tuto-btn:hover { transform: scale(1.05); background: #000; }
+        .method-steps { display: flex; gap: 10px; margin: 20px 0; justify-content: space-between; }
+        .m-step { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; width: 23%; text-align: center; border: 1px solid #444; }
+        .m-icon { font-size: 1.5rem; display: block; margin-bottom: 5px; }
+        .m-desc { font-size: 0.8rem; font-weight: bold; color: #aaa; }
 
-        /* HELP CONTENT */
-        .help-section { text-align: left; margin-bottom: 20px; color: #ddd; line-height: 1.6; }
-        .help-section h3 { color: var(--xp-color); margin-bottom: 10px; }
-        .help-highlight { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid var(--success-color); }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin-top: 20px; border: 1px solid #444; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .science-box { background: rgba(0, 184, 148, 0.1); padding: 15px; border-radius: 8px; border-left: 4px solid var(--success-color); margin-top: 20px; }
+        .science-title { font-weight: bold; color: var(--success-color); display: block; margin-bottom: 5px; }
+        .science-link { color: #74b9ff; text-decoration: none; font-size: 0.9rem; display: block; margin-top: 5px; transition: color 0.2s; }
+        .science-link:hover { color: white; text-decoration: underline; }
 
-        /* ARCHIVES */
+        /* ARCHIVES & OTHERS (Existing Styles) */
         .archive-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #444; }
         .archive-controls { display: flex; gap: 10px; }
         .btn-bulk { padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem; font-weight: bold; }
@@ -79,8 +75,6 @@
         .archive-item:hover { background: #3a3a3a; }
         .archive-checkbox { margin-right: 15px; transform: scale(1.2); cursor: pointer; }
         .archive-title { font-weight: 500; color: #ccc; flex-grow: 1; }
-
-        /* SETTINGS & STATS */
         .setting-row { display: flex; justify-content: space-between; align-items: center; margin: 15px 0; }
         .setting-input { background: #111; border: 1px solid #444; color: white; padding: 8px; width: 60px; text-align: center; border-radius: 5px; font-size: 1rem; }
         .btn-save { background: var(--success-color); color: white; width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; }
@@ -110,17 +104,8 @@
         .top-bar-bg { background: #444; height: 4px; width: 100%; border-radius: 2px; margin-top: 4px; overflow: hidden; }
         .top-bar-fill { height: 100%; background: var(--success-color); }
         .top-count { font-weight: bold; color: var(--xp-color); margin-left: 10px; }
-
-        /* POST-IT & BOARD */
         .board-container { width: 100%; margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding-bottom: 50px; }
-        .post-it { 
-            background-color: var(--postit-color); color: #333; width: 220px; 
-            min-height: 100px; padding: 15px; 
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.3); 
-            font-family: 'Kalam', cursive; font-size: 1rem; 
-            position: relative; transform: rotate(-1deg); 
-            transition: all 0.2s; display: flex; flex-direction: column; 
-        }
+        .post-it { background-color: var(--postit-color); color: #333; width: 220px; min-height: 100px; padding: 15px; box-shadow: 5px 5px 15px rgba(0,0,0,0.3); font-family: 'Kalam', cursive; font-size: 1rem; position: relative; transform: rotate(-1deg); transition: all 0.2s; display: flex; flex-direction: column; }
         .post-it:hover { transform: scale(1.02) rotate(0deg); z-index: 10; box-shadow: 8px 8px 20px rgba(0,0,0,0.4); }
         .post-it.minimized { height: auto; min-height: 0; padding-bottom: 10px; }
         .post-it-title { font-weight: bold; border-bottom: 1px dashed #999; padding-bottom: 5px; margin-bottom: 5px; font-size: 1.1rem; outline: none; background: transparent; border-top: none; border-left: none; border-right: none; width: 100%; }
@@ -141,8 +126,6 @@
         .add-project-btn:hover { border-color: #aaa; color: white; background: rgba(255,255,255,0.05); }
         .view-archives-btn { display: block; margin: 20px auto; background: transparent; border: none; color: #666; text-decoration: underline; cursor: pointer; }
         .view-archives-btn:hover { color: #aaa; }
-
-        /* SIDEBAR & MAIN */
         .sidebar { width: 350px; background-color: var(--surface-color); padding: 20px; display: flex; flex-direction: column; border-right: 1px solid #444; transition: transform 0.3s ease; z-index: 10; background-color: var(--surface-color); }
         .add-task-wrapper { background: #222; padding: 15px; border-radius: 12px; margin-bottom: 20px; }
         input[type="text"] { width: 100%; padding: 12px; margin-bottom: 15px; background: #333; border: 1px solid #444; color: white; border-radius: 6px; outline: none; box-sizing: border-box; font-size: 1rem; }
@@ -200,7 +183,7 @@
     </div>
 
     <div class="top-bar">
-        <button class="icon-btn tomato-btn" onclick="openHelp()" title="Qu'est-ce que le Pomodoro ?"><span style="font-size: 1.2rem;">🍅</span></button>
+        <button class="icon-btn tomato-btn" onclick="openHelp()" title="Méthode & Science"><span style="font-size: 1.2rem;">🍅</span></button>
         <button id="btn-stats" class="icon-btn" onclick="openStats()" title="Tableau de bord"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></button>
         <button id="btn-settings" class="icon-btn" onclick="openSettings()" title="Réglages"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84a.484.484 0 0 0-.48.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.488.488 0 0 0-.59.22L2.05 8.87a.49.49 0 0 0 .12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.27.41.48.41h3.84c.24 0 .44-.17.48-.41l.36-2.54c.59-.24 1.13-.57 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></button>
     </div>
@@ -208,25 +191,38 @@
     <div class="modal-overlay" id="help-modal">
         <div class="modal-box">
             <button class="btn-close" onclick="closeHelp()">×</button>
-            <h2 class="modal-title">Bienvenue dans Focus Quest</h2>
+            <h2 class="modal-title">🍅 La Méthode & La Science</h2>
             
             <div class="help-section">
-                <h3>🍅 La Méthode Pomodoro</h3>
-                <p>C'est une technique simple pour rester concentré sans s'épuiser.</p>
-                <div class="help-highlight">
-                    1. Choisis une seule tâche.<br>
-                    2. <strong>Focus (25 min) :</strong> Travaille sans distraction.<br>
-                    3. <strong>Pause (5 min) :</strong> Détends-toi vraiment.<br>
-                    4. Répète 4 fois, puis prends une longue pause.
+                <div class="method-steps">
+                    <div class="m-step"><span class="m-icon">🎯</span><span class="m-desc">1 Tâche</span></div>
+                    <div class="m-step"><span class="m-icon">⚡</span><span class="m-desc">25 min</span></div>
+                    <div class="m-step"><span class="m-icon">☕</span><span class="m-desc">5 min</span></div>
+                    <div class="m-step"><span class="m-icon">🔄</span><span class="m-desc">x4 Cycles</span></div>
                 </div>
-                <p>Pourquoi ? Parce que le cerveau ne peut pas rester concentré à 100% pendant des heures. Les pauses régulières rechargent ta "barre d'énergie" mentale.</p>
-            </div>
 
-            <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/1pS4o8h2sZs?si=6I5k8q8c7F0x2K8f" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <h3>Pourquoi ça marche ? (Cognition)</h3>
+                <div class="help-text">
+                    <strong>1. La Loi de Parkinson :</strong> "Le travail s'étale pour occuper tout le temps disponible."
+                    En fixant une limite stricte de 25 minutes, vous créez une <em>urgence artificielle</em> qui force votre cerveau à être hyper-efficace immédiatement.
+                </div>
+                <div class="help-text">
+                    <strong>2. La Charge Cognitive & Vigilance :</strong>
+                    Le cerveau n'est pas fait pour une concentration linéaire. Comme un muscle, il s'épuise. Les pauses régulières permettent de "réinitialiser" l'attention.
+                </div>
+
+                <div class="science-box">
+                    <span class="science-title">🔬 Preuves Scientifiques</span>
+                    <a href="https://www.sciencedaily.com/releases/2011/02/110208131529.htm" target="_blank" class="science-link">
+                        ➢ Étude Univ. Illinois (2011) : "Brief diversions vastly improve focus"
+                    </a>
+                    <a href="https://en.wikipedia.org/wiki/Basic_rest%E2%80%93activity_cycle" target="_blank" class="science-link">
+                        ➢ Les Rythmes Ultradiens (Nathaniel Kleitman) : Cycles de 90min
+                    </a>
+                </div>
             </div>
             
-            <button class="btn-save" style="margin-top:20px;" onclick="closeHelp()">Compris, lance le Tuto ! 🚀</button>
+            <button class="btn-save" style="margin-top:20px;" onclick="closeHelp()">Lancer le Tutoriel Interactif 🚀</button>
         </div>
     </div>
 
@@ -361,6 +357,7 @@
         function getSelectedArchiveIds() { const checkboxes = document.querySelectorAll('.archive-checkbox:checked'); return Array.from(checkboxes).map(cb => parseInt(cb.value)); }
         function restoreSelectedArchives() { const ids = getSelectedArchiveIds(); if(ids.length === 0) return; ids.forEach(id => { const proj = archivedProjects.find(p => p.id === id); if(proj) { projects.push(proj); } }); archivedProjects = archivedProjects.filter(p => !ids.includes(p.id)); saveProjects(); saveArchives(); renderBoard(); openArchives(); showToast(`${ids.length} projet(s) restauré(s).`); }
         function deleteSelectedArchives() { const ids = getSelectedArchiveIds(); if(ids.length === 0) return; archivedProjects = archivedProjects.filter(p => !ids.includes(p.id)); saveArchives(); openArchives(); showToast(`${ids.length} projet(s) supprimé(s).`); }
+        
         function createNewProject() { const newProj = { id: Date.now(), title: 'Nouveau Projet', lines: [], minimized: false }; projects.push(newProj); saveProjects(); renderBoard(); }
         
         function renderBoard() { 
@@ -398,29 +395,7 @@
         function selectTask(id) { const task = tasks.find(t => t.id === id); if(!task || task.isDone) return; activeTaskId = id; document.getElementById('current-task-display').innerText = task.title; renderTasks(); }
         function toggleDone(id) { const task = tasks.find(t => t.id === id); task.isDone = !task.isDone; if(task.isDone) task.finishedDate = new Date().toISOString().split('T')[0]; else task.finishedDate = null; save(); renderTasks(); }
         function save() { localStorage.setItem('focusTasks_v5', JSON.stringify(tasks)); }
-        
-        // --- FIX TIMER CRASH ---
-        function startTimer() { 
-            if(!activeTaskId && !isBreak) { showToast("Sélectionne une tâche !"); return; } 
-            totalTime = (isBreak ? settings.break : settings.work) * 60; 
-            endTime = Date.now() + (totalTime * 1000); 
-            if(!isBreak) { 
-                const task = tasks.find(t => t.id === activeTaskId);
-                // Safety check fix
-                if(!task) { activeTaskId = null; showToast("Erreur tâche. Sélectionne à nouveau."); renderTasks(); return; }
-                document.body.classList.add('zen-mode'); 
-                document.getElementById('progress-bar').style.backgroundColor = CATEGORIES[task.cat].color; 
-            } else { 
-                document.body.classList.add('break-mode'); 
-                document.getElementById('status-text').innerText = "PAUSE MÉRITÉE"; 
-                document.getElementById('btn-skip-break').style.display = 'inline-block'; 
-                document.getElementById('progress-bar').style.backgroundColor = 'var(--break-color)'; 
-            } 
-            document.getElementById('btn-start').style.display = 'none'; 
-            if(!isBreak) document.getElementById('btn-stop').style.display = 'inline-block'; 
-            clearInterval(timerInterval); updateTick(); timerInterval = setInterval(updateTick, 1000); 
-        }
-
+        function startTimer() { if(!activeTaskId && !isBreak) { showToast("Sélectionne une tâche !"); return; } totalTime = (isBreak ? settings.break : settings.work) * 60; endTime = Date.now() + (totalTime * 1000); if(!isBreak) { const task = tasks.find(t => t.id === activeTaskId); if(!task) { activeTaskId = null; showToast("Erreur tâche. Sélectionne à nouveau."); renderTasks(); return; } document.body.classList.add('zen-mode'); document.getElementById('progress-bar').style.backgroundColor = CATEGORIES[task.cat].color; } else { document.body.classList.add('break-mode'); document.getElementById('status-text').innerText = "PAUSE MÉRITÉE"; document.getElementById('btn-skip-break').style.display = 'inline-block'; document.getElementById('progress-bar').style.backgroundColor = 'var(--break-color)'; } document.getElementById('btn-start').style.display = 'none'; if(!isBreak) document.getElementById('btn-stop').style.display = 'inline-block'; clearInterval(timerInterval); updateTick(); timerInterval = setInterval(updateTick, 1000); }
         function updateTick() { const now = Date.now(); const timeLeft = Math.ceil((endTime - now) / 1000); if (timeLeft >= 0) { const m = Math.floor(timeLeft / 60); const s = timeLeft % 60; const timeString = `${m}:${s < 10 ? '0' : ''}${s}`; document.getElementById('timer').innerText = timeString; const percent = ((totalTime - timeLeft) / totalTime) * 100; const totalBlocks = 15; const filledBlocks = Math.round((percent / 100) * totalBlocks); const visualBar = '▬'.repeat(filledBlocks) + '─'.repeat(totalBlocks - filledBlocks); document.title = `[${visualBar}] ${isBreak ? 'Pause' : 'Focus'}`; document.getElementById('progress-bar').style.width = `${percent}%`; } else { clearInterval(timerInterval); finishCycle(); } }
         function finishCycle() { const audio = document.getElementById('alarm-sound'); if(audio) audio.play().catch(() => {}); document.title = "🔔 Terminé !"; if (!isBreak) { const task = tasks.find(t => t.id === activeTaskId); task.completedPomodoros++; if(!task.sessionTimestamps) task.sessionTimestamps = []; task.sessionTimestamps.push(new Date().toISOString()); save(); renderTasks(); isBreak = true; document.body.classList.remove('zen-mode'); document.getElementById('btn-stop').style.display = 'none'; setTimeout(() => startTimer(), 1500); } else { isBreak = false; document.body.classList.remove('break-mode'); document.getElementById('status-text').innerText = "Prêt à travailler"; document.getElementById('btn-skip-break').style.display = 'none'; resetUI(); } }
         function stopTimer() { clearInterval(timerInterval); document.body.classList.remove('zen-mode'); resetUI(); document.title = "Focus Quest"; }
