@@ -28,16 +28,16 @@
         .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 10px 20px; border-radius: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); font-size: 0.9rem; z-index: 2000; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
         .toast.show { opacity: 1; }
 
-        /* MODALS */
+        /* MODALS (WIDER FOR TEXT) */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 200; display: none; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
-        .modal-box { background: #222; padding: 30px; border-radius: 20px; width: 650px; max-width: 95%; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid #444; max-height: 90vh; overflow-y: auto; }
-        .modal-title { margin-top: 0; color: white; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px; font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; }
+        .modal-box { background: #222; padding: 40px; border-radius: 20px; width: 700px; max-width: 95%; text-align: left; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid #444; max-height: 90vh; overflow-y: auto; }
+        .modal-title { margin-top: 0; color: white; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px; font-size: 1.4rem; display: flex; justify-content: space-between; align-items: center; }
         
         /* TUTORIAL SYSTEM */
         .tutorial-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 900; display: none; background: rgba(0,0,0,0.5); pointer-events: auto; }
         .tutorial-active-element { 
             position: relative; z-index: 901; 
-            box-shadow: 0 0 0 9999px rgba(0,0,0,0.85), 0 0 25px rgba(255, 215, 0, 0.6); /* Spotlight Or */
+            box-shadow: 0 0 0 9999px rgba(0,0,0,0.85), 0 0 25px rgba(255, 215, 0, 0.6); 
             border-radius: 8px; pointer-events: none; 
             background-color: inherit; transition: box-shadow 0.3s ease;
             border: 1px solid rgba(255, 215, 0, 0.5);
@@ -49,22 +49,30 @@
         .tuto-btn { background: #333; color: white; border: none; padding: 8px 20px; border-radius: 5px; cursor: pointer; float: right; font-weight: bold; transition: background 0.2s; }
         .tuto-btn:hover { background: #000; }
 
-        /* SCIENTIFIC HELP CONTENT */
-        .help-section { text-align: left; margin-bottom: 25px; color: #ddd; line-height: 1.7; }
-        .help-section h3 { color: var(--xp-color); margin-bottom: 15px; border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 0; }
-        .help-text { font-size: 0.95rem; color: #ccc; margin-bottom: 15px; text-align: justify; }
+        /* --- NEW TEXT CONTENT STYLES V29 --- */
+        .help-article { color: #ccc; line-height: 1.8; font-size: 1rem; margin-bottom: 30px; text-align: justify; }
+        .help-article p { margin-bottom: 15px; }
+        .help-article strong { color: white; }
         
-        .method-steps { display: flex; gap: 10px; margin: 20px 0; justify-content: space-between; }
-        .m-step { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; width: 23%; text-align: center; border: 1px solid #444; }
-        .m-icon { font-size: 1.5rem; display: block; margin-bottom: 5px; }
-        .m-desc { font-size: 0.8rem; font-weight: bold; color: #aaa; }
+        .literature-box { 
+            background: #1e1e1e; 
+            padding: 20px; 
+            border-radius: 10px; 
+            border: 1px solid #333;
+            border-left: 5px solid #74b9ff; /* Accent bleu science */
+            margin-top: 30px;
+        }
+        .lit-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .lit-header h3 { margin: 0; color: #74b9ff; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .lit-list { list-style: none; padding: 0; margin: 0; }
+        .lit-item { margin-bottom: 10px; display: flex; align-items: start; gap: 10px; font-size: 0.9rem; }
+        .lit-icon { color: #666; margin-top: 3px; }
+        .lit-link { color: #aaa; text-decoration: none; transition: all 0.2s; }
+        .lit-link:hover { color: white; text-decoration: underline; color: #74b9ff; }
+        .lit-author { display: block; font-size: 0.8rem; color: #555; margin-top: 2px; font-style: italic; }
 
-        .science-box { background: rgba(0, 184, 148, 0.1); padding: 15px; border-radius: 8px; border-left: 4px solid var(--success-color); margin-top: 20px; }
-        .science-title { font-weight: bold; color: var(--success-color); display: block; margin-bottom: 5px; }
-        .science-link { color: #74b9ff; text-decoration: none; font-size: 0.9rem; display: block; margin-top: 5px; transition: color 0.2s; }
-        .science-link:hover { color: white; text-decoration: underline; }
-
-        /* ARCHIVES & OTHERS (Existing Styles) */
+        /* ARCHIVES & OTHERS */
         .archive-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #444; }
         .archive-controls { display: flex; gap: 10px; }
         .btn-bulk { padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem; font-weight: bold; }
@@ -191,38 +199,52 @@
     <div class="modal-overlay" id="help-modal">
         <div class="modal-box">
             <button class="btn-close" onclick="closeHelp()">×</button>
-            <h2 class="modal-title">🍅 La Méthode & La Science</h2>
+            <h2 class="modal-title">🍅 La Méthode Pomodoro</h2>
             
-            <div class="help-section">
-                <div class="method-steps">
-                    <div class="m-step"><span class="m-icon">🎯</span><span class="m-desc">1 Tâche</span></div>
-                    <div class="m-step"><span class="m-icon">⚡</span><span class="m-desc">25 min</span></div>
-                    <div class="m-step"><span class="m-icon">☕</span><span class="m-desc">5 min</span></div>
-                    <div class="m-step"><span class="m-icon">🔄</span><span class="m-desc">x4 Cycles</span></div>
-                </div>
+            <div class="help-article">
+                <p>La technique Pomodoro est une méthode de gestion du temps développée par Francesco Cirillo à la fin des années 1980. Elle utilise un minuteur pour diviser le travail en intervalles, traditionnellement de 25 minutes, séparés par de courtes pauses.</p>
+                <p><strong>Pourquoi ça fonctionne ?</strong><br>Le principe repose sur l'idée que des pauses fréquentes favorisent l'agilité mentale. Plutôt que de lutter contre la fatigue cognitive sur de longues périodes, la méthode structure le temps pour maintenir un niveau de vigilance optimal.</p>
+                <p><strong>Le Mécanisme Cognitif :</strong><br>En fixant une limite de temps stricte (la "Timebox"), vous exploitez la <em>Loi de Parkinson</em> : "Le travail s'étale de façon à occuper le temps disponible pour son achèvement". En réduisant ce temps, vous créez une urgence artificielle qui force le cerveau à se concentrer immédiatement.</p>
+            </div>
 
-                <h3>Pourquoi ça marche ? (Cognition)</h3>
-                <div class="help-text">
-                    <strong>1. La Loi de Parkinson :</strong> "Le travail s'étale pour occuper tout le temps disponible."
-                    En fixant une limite stricte de 25 minutes, vous créez une <em>urgence artificielle</em> qui force votre cerveau à être hyper-efficace immédiatement.
+            <div class="literature-box">
+                <div class="lit-header">
+                    <span style="font-size:1.5rem">📚</span>
+                    <h3>Littérature Scientifique</h3>
                 </div>
-                <div class="help-text">
-                    <strong>2. La Charge Cognitive & Vigilance :</strong>
-                    Le cerveau n'est pas fait pour une concentration linéaire. Comme un muscle, il s'épuise. Les pauses régulières permettent de "réinitialiser" l'attention.
-                </div>
-
-                <div class="science-box">
-                    <span class="science-title">🔬 Preuves Scientifiques</span>
-                    <a href="https://www.sciencedaily.com/releases/2011/02/110208131529.htm" target="_blank" class="science-link">
-                        ➢ Étude Univ. Illinois (2011) : "Brief diversions vastly improve focus"
-                    </a>
-                    <a href="https://en.wikipedia.org/wiki/Basic_rest%E2%80%93activity_cycle" target="_blank" class="science-link">
-                        ➢ Les Rythmes Ultradiens (Nathaniel Kleitman) : Cycles de 90min
-                    </a>
-                </div>
+                <ul class="lit-list">
+                    <li class="lit-item">
+                        <span class="lit-icon">➤</span>
+                        <div>
+                            <a href="https://fr.wikipedia.org/wiki/Technique_Pomodoro" target="_blank" class="lit-link">The Pomodoro Technique (Livre original)</a>
+                            <span class="lit-author">Francesco Cirillo (2006)</span>
+                        </div>
+                    </li>
+                    <li class="lit-item">
+                        <span class="lit-icon">➤</span>
+                        <div>
+                            <a href="https://news.illinois.edu/view/6367/205427" target="_blank" class="lit-link">Brief diversions vastly improve focus</a>
+                            <span class="lit-author">A. Lleras, University of Illinois (2011)</span>
+                        </div>
+                    </li>
+                    <li class="lit-item">
+                        <span class="lit-icon">➤</span>
+                        <div>
+                            <a href="https://en.wikipedia.org/wiki/Basic_rest%E2%80%93activity_cycle" target="_blank" class="lit-link">Basic Rest-Activity Cycle (BRAC)</a>
+                            <span class="lit-author">Nathaniel Kleitman (Rythmes Ultradiens)</span>
+                        </div>
+                    </li>
+                    <li class="lit-item">
+                        <span class="lit-icon">➤</span>
+                        <div>
+                            <a href="https://en.wikipedia.org/wiki/Parkinson%27s_law" target="_blank" class="lit-link">Parkinson's Law & Time Pressure</a>
+                            <span class="lit-author">Cyril Northcote Parkinson (1955)</span>
+                        </div>
+                    </li>
+                </ul>
             </div>
             
-            <button class="btn-save" style="margin-top:20px;" onclick="closeHelp()">Lancer le Tutoriel Interactif 🚀</button>
+            <button class="btn-save" style="margin-top:30px; width:100%; font-size:1.1rem;" onclick="closeHelp()">Lancer le Tutoriel Interactif 🚀</button>
         </div>
     </div>
 
@@ -395,7 +417,29 @@
         function selectTask(id) { const task = tasks.find(t => t.id === id); if(!task || task.isDone) return; activeTaskId = id; document.getElementById('current-task-display').innerText = task.title; renderTasks(); }
         function toggleDone(id) { const task = tasks.find(t => t.id === id); task.isDone = !task.isDone; if(task.isDone) task.finishedDate = new Date().toISOString().split('T')[0]; else task.finishedDate = null; save(); renderTasks(); }
         function save() { localStorage.setItem('focusTasks_v5', JSON.stringify(tasks)); }
-        function startTimer() { if(!activeTaskId && !isBreak) { showToast("Sélectionne une tâche !"); return; } totalTime = (isBreak ? settings.break : settings.work) * 60; endTime = Date.now() + (totalTime * 1000); if(!isBreak) { const task = tasks.find(t => t.id === activeTaskId); if(!task) { activeTaskId = null; showToast("Erreur tâche. Sélectionne à nouveau."); renderTasks(); return; } document.body.classList.add('zen-mode'); document.getElementById('progress-bar').style.backgroundColor = CATEGORIES[task.cat].color; } else { document.body.classList.add('break-mode'); document.getElementById('status-text').innerText = "PAUSE MÉRITÉE"; document.getElementById('btn-skip-break').style.display = 'inline-block'; document.getElementById('progress-bar').style.backgroundColor = 'var(--break-color)'; } document.getElementById('btn-start').style.display = 'none'; if(!isBreak) document.getElementById('btn-stop').style.display = 'inline-block'; clearInterval(timerInterval); updateTick(); timerInterval = setInterval(updateTick, 1000); }
+        
+        // --- FIX TIMER CRASH ---
+        function startTimer() { 
+            if(!activeTaskId && !isBreak) { showToast("Sélectionne une tâche !"); return; } 
+            totalTime = (isBreak ? settings.break : settings.work) * 60; 
+            endTime = Date.now() + (totalTime * 1000); 
+            if(!isBreak) { 
+                const task = tasks.find(t => t.id === activeTaskId);
+                // Safety check fix
+                if(!task) { activeTaskId = null; showToast("Erreur tâche. Sélectionne à nouveau."); renderTasks(); return; }
+                document.body.classList.add('zen-mode'); 
+                document.getElementById('progress-bar').style.backgroundColor = CATEGORIES[task.cat].color; 
+            } else { 
+                document.body.classList.add('break-mode'); 
+                document.getElementById('status-text').innerText = "PAUSE MÉRITÉE"; 
+                document.getElementById('btn-skip-break').style.display = 'inline-block'; 
+                document.getElementById('progress-bar').style.backgroundColor = 'var(--break-color)'; 
+            } 
+            document.getElementById('btn-start').style.display = 'none'; 
+            if(!isBreak) document.getElementById('btn-stop').style.display = 'inline-block'; 
+            clearInterval(timerInterval); updateTick(); timerInterval = setInterval(updateTick, 1000); 
+        }
+
         function updateTick() { const now = Date.now(); const timeLeft = Math.ceil((endTime - now) / 1000); if (timeLeft >= 0) { const m = Math.floor(timeLeft / 60); const s = timeLeft % 60; const timeString = `${m}:${s < 10 ? '0' : ''}${s}`; document.getElementById('timer').innerText = timeString; const percent = ((totalTime - timeLeft) / totalTime) * 100; const totalBlocks = 15; const filledBlocks = Math.round((percent / 100) * totalBlocks); const visualBar = '▬'.repeat(filledBlocks) + '─'.repeat(totalBlocks - filledBlocks); document.title = `[${visualBar}] ${isBreak ? 'Pause' : 'Focus'}`; document.getElementById('progress-bar').style.width = `${percent}%`; } else { clearInterval(timerInterval); finishCycle(); } }
         function finishCycle() { const audio = document.getElementById('alarm-sound'); if(audio) audio.play().catch(() => {}); document.title = "🔔 Terminé !"; if (!isBreak) { const task = tasks.find(t => t.id === activeTaskId); task.completedPomodoros++; if(!task.sessionTimestamps) task.sessionTimestamps = []; task.sessionTimestamps.push(new Date().toISOString()); save(); renderTasks(); isBreak = true; document.body.classList.remove('zen-mode'); document.getElementById('btn-stop').style.display = 'none'; setTimeout(() => startTimer(), 1500); } else { isBreak = false; document.body.classList.remove('break-mode'); document.getElementById('status-text').innerText = "Prêt à travailler"; document.getElementById('btn-skip-break').style.display = 'none'; resetUI(); } }
         function stopTimer() { clearInterval(timerInterval); document.body.classList.remove('zen-mode'); resetUI(); document.title = "Focus Quest"; }
